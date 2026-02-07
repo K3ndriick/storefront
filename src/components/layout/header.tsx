@@ -26,7 +26,7 @@ export function Header() {
             </Link>
 
             {/* Desktop Navigation with Mega Menus */}
-            <nav className="hidden md:flex items-center space-x-8">
+            <nav className="hidden md:flex items-center space-x-12">
               
               {/* Shop - With Mega Menu */}
               <div className="group relative">
@@ -54,14 +54,13 @@ export function Header() {
                 </div>
               </div>
 
-
-              {/* Contact - Moved to right side as text link */}
-              <Link
-                href="/contact"
-                className="hidden lg:block text-sm font-medium text-foreground hover:text-accent transition-colors"
-              >
-                Contact
-              </Link>
+              {/* Contact */}
+              <div className="group relative">
+                <div className="relative z-20">
+                  <NavItem href="/contact">Contact</NavItem>
+                </div>
+                {/* No mega menu, but same wrapper structure */}
+              </div>           
 
             </nav>
 
@@ -73,7 +72,7 @@ export function Header() {
                 className="text-foreground hover:text-accent transition-colors"
                 aria-label="Search"
               >
-                <Search className="h-5 w-5" />
+                <Search className="h-6 w-6" />
               </button>
 
               {/* User Account */}
@@ -82,7 +81,7 @@ export function Header() {
                 className="hidden sm:block text-foreground hover:text-accent transition-colors"
                 aria-label="Account"
               >
-                <User className="h-5 w-5" />
+                <User className="h-6 w-6" />
               </Link>
 
               {/* Cart with Badge */}
@@ -91,7 +90,7 @@ export function Header() {
                 className="relative text-foreground hover:text-accent transition-colors"
                 aria-label="Shopping cart"
               >
-                <ShoppingCart className="h-5 w-5" />
+                <ShoppingCart className="h-6 w-6" />
                 {cartItemCount > 0 && (
                   <span className="absolute -top-2 -right-2 h-5 w-5 rounded-full bg-accent text-accent-foreground text-xs font-bold flex items-center justify-center">
                     {cartItemCount}

@@ -19,7 +19,7 @@ export function MegaMenuColumn({ title, links }: MegaMenuColumnProps) {
           <li key={link.href}>
             <Link 
               href={link.href} 
-              className="text-sm text-foreground hover:bg-muted hover:text-accent transition-all block py-1.5 rounded-md"
+              className="text-sm text-foreground hover:underline underline-offset-2 transition-all inline-block py-1.5"
             >
               {link.label}
             </Link>

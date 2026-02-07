@@ -11,20 +11,22 @@ type MegaMenuFeaturedProps = {
 }
 
 /**
- * Featured links sidebar for mega menus
- * Used for highlighting special categories like "NEW ARRIVALS", "SALE", etc.
+ * Featured links component for mega menus
+ * Pure content component - no layout/border concerns
+ * 
+ * Note: Parent component controls layout, borders, and alignment
  */
 export function MegaMenuFeatured({ links }: MegaMenuFeaturedProps) {
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col">
       <div className="space-y-4">
         {links.map((link) => {
           // Determine styling based on variant
-          const baseClasses = "block font-bold transition-all px-4 py-2 rounded-md whitespace-nowrap"
+          const baseClasses = "block font-bold transition-all px-4 py-2 rounded-md whitespace-nowrap text-left hover:underline underline-offset-2"
           const variantClasses = 
             link.variant === 'destructive' 
-              ? "text-destructive hover:bg-muted hover:opacity-80"
-              : "text-foreground hover:bg-muted hover:text-accent"
+              ? "text-destructive"
+              : "text-foreground"
           
           return (
             <Link 
