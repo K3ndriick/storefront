@@ -6,7 +6,7 @@ import './globals.css';
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
-  title: 'GymProShop - Premium Gym Equipment & Repair Services',
+  title: 'PowerProShop - Premium Gym Equipment & Repair Services',
   description: 'Shop premium gym equipment and book expert repair services for all your fitness gear.',
 }
 
