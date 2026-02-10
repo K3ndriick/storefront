@@ -50,3 +50,24 @@ export type CreateProduct = Omit<Product, 'id' | 'created_at' | 'updated_at' | '
 
 // Type for category filter
 export type ProductCategory = Product['category']  // 'cardio' | 'strength' | ...
+
+export type ProductSortOption = 
+  | 'price-asc' 
+  | 'price-desc' 
+  | 'name-asc' 
+  | 'name-desc'
+  | 'newest'
+  | 'best-seller'
+
+export interface ProductFilters {
+  category?: ProductCategory
+  categories?: ProductCategory[]  // Multiple
+  priceRange?: { min: number, max: number }
+  search?: string
+  sortBy?: ProductSortOption
+  inStockOnly?: boolean
+  featured?: boolean
+  onSale?: boolean
+  limit?: number
+  offset?: number
+}
