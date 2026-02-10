@@ -1,70 +1,10 @@
 import { ProductGrid } from '@/components/product/product-grid'
 import { Hero } from '@/components/layout/hero'
 import { CategoryNav } from '@/components/layout/category-nav'
+import { getFeaturedProducts } from '@/lib/actions/products'
 
 // Mock data - will replace with Supabase later
-const featuredProducts = [
-  {
-    id: '1',
-    name: 'Premium Treadmill Pro X',
-    slug: 'premium-treadmill-pro-x',
-    price: 1299.99,
-    image: '/images/products/treadmill.jpg',
-    category: 'Cardio',
-    rating: 4.8,
-    inStock: true,
-  },
-  {
-    id: '2',
-    name: 'Adjustable Dumbbell Set 50kg',
-    slug: 'adjustable-dumbbell-set-50kg',
-    price: 349.99,
-    image: '/images/products/dumbbells.jpg',
-    category: 'Strength',
-    rating: 4.9,
-    inStock: true,
-  },
-  {
-    id: '3',
-    name: 'Yoga Mat Premium - Blue',
-    slug: 'yoga-mat-premium-blue',
-    price: 49.99,
-    image: '/images/products/yoga-mat.jpg',
-    category: 'Accessories',
-    rating: 4.6,
-    inStock: true,
-  },
-  {
-    id: '4',
-    name: 'Resistance Bands Set',
-    slug: 'resistance-bands-set',
-    price: 29.99,
-    image: '/images/products/resistance-bands.jpg',
-    category: 'Accessories',
-    rating: 4.7,
-    inStock: false,
-  },
-  {
-    id: '5',
-    name: 'Spin Bike Elite',
-    slug: 'spin-bike-elite',
-    price: 899.99,
-    image: '/images/products/spin-bike.jpg',
-    category: 'Cardio',
-    rating: 4.8,
-    inStock: true,
-  },
-  {
-    id: '6',
-    name: 'Weight Bench Adjustable',
-    slug: 'weight-bench-adjustable',
-    price: 299.99,
-    image: '/images/products/weight-bench.jpg',
-    category: 'Strength',
-    rating: 4.5,
-    inStock: true,
-  },
-]
+const featuredProducts = await getFeaturedProducts(6);
 
 export default function HomePage() {
   return (
