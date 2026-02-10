@@ -9,6 +9,7 @@ export type MenuLink = {
 
 export type MenuColumn = {
   title: string
+  titleHref?: string
   links: MenuLink[]
 }
 
@@ -24,17 +25,17 @@ export const shopMenuData: MegaMenuData = {
   // Left sidebar - Featured links
   featured: [
     { 
-      href: '/products/new', 
+      href: '/products?new_arrival=true',
       label: 'NEW ARRIVALS',
       variant: 'featured'
     },
     { 
-      href: '/products/bestsellers', 
+      href: '/products?bestsellers=true',
       label: 'BEST SELLERS',
       variant: 'featured'
     },
     { 
-      href: '/products/sale', 
+      href: '/products?onSale=true', 
       label: 'SALE',
       variant: 'destructive'
     },
@@ -44,31 +45,31 @@ export const shopMenuData: MegaMenuData = {
   columns: [
     {
       title: 'Equipment',
+      titleHref: '/products?categories=cardio,strength,weights',
       links: [
         { href: '/products?category=cardio', label: 'Cardio Machines' },
         { href: '/products?category=strength', label: 'Strength Equipment' },
-        { href: '/products?category=free-weights', label: 'Free Weights' },
-        { href: '/products?category=benches', label: 'Benches & Racks' },
-        { href: '/products?category=plates', label: 'Weight Plates' },
+        { href: '/products?category=weights', label: 'Free Weights' },
       ]
     },
     {
       title: 'Accessories',
+      titleHref: '/products?category=accessories',
       links: [
-        { href: '/products?category=mats', label: 'Yoga & Exercise Mats' },
-        { href: '/products?category=bands', label: 'Resistance Bands' },
-        { href: '/products?category=gloves', label: 'Gloves & Grips' },
-        { href: '/products?category=bottles', label: 'Water Bottles' },
-        { href: '/products?category=bags', label: 'Gym Bags' },
+        { href: '/products?category=accessories&search=mat', label: 'Yoga & Exercise Mats' },
+        { href: '/products?category=accessories&search=band', label: 'Resistance Bands' },
+        { href: '/products?category=accessories&search=glove', label: 'Gloves & Grips' },
+        { href: '/products?category=accessories&search=bottle', label: 'Water Bottles' },
+        { href: '/products?category=accessories&search=bag', label: 'Gym Bags' },
       ]
     },
     {
       title: 'Recovery',
+      titleHref: '/products?category=recovery',
       links: [
-        { href: '/products?category=foam-rollers', label: 'Foam Rollers' },
-        { href: '/products?category=massage-guns', label: 'Massage Guns' },
-        { href: '/products?category=compression', label: 'Compression Gear' },
-        { href: '/products?category=ice-baths', label: 'Ice Baths' },
+        { href: '/products?category=recovery&search=foam', label: 'Foam Rollers' },
+        { href: '/products?category=recovery&search=massage', label: 'Massage Guns' },
+        { href: '/products?category=recovery&search=compression', label: 'Compression Gear' },
       ]
     }
   ]
