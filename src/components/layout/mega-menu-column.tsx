@@ -7,13 +7,25 @@ type MegaMenuLink = {
 
 type MegaMenuColumnProps = {
   title: string
+  titleHref?: string
   links: MegaMenuLink[]
 }
 
-export function MegaMenuColumn({ title, links }: MegaMenuColumnProps) {
+export function MegaMenuColumn({ title, titleHref, links }: MegaMenuColumnProps) {
   return (
     <div>
-      <h3 className="font-bold text-foreground mb-4">{title}</h3>
+      {/* Column Title - Clickable if titleHref provided */}
+      {titleHref ? (
+        <Link href={titleHref}>
+          <h3 className="font-bold text-foreground mb-4 hover:underline underline-offset-2">
+            {title}
+          </h3>
+        </Link>
+      ) : (
+        <h3 className="font-bold text-foreground mb-4">{title}</h3>
+      )}
+      
+      {/* Column Links */}
       <ul className="space-y-2">
         {links.map((link) => (
           <li key={link.href}>
