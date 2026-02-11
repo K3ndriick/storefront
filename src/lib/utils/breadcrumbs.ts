@@ -27,13 +27,16 @@ type SearchParams = {
 export function generateProductBreadcrumbs(searchParams: SearchParams): BreadcrumbData[] {
   // Always start with Home
   const breadcrumbs: BreadcrumbData[] = [
-    { label: 'Home', href: '/' },
+    {
+      label: 'Home',  // Text: "Home"
+      href: '/'       // Link: homepage
+    },
   ]
   
   // Always add Products (with link to all products)
   breadcrumbs.push({
-    label: 'Products',
-    href: '/products'
+    label: 'Products',  // Text: "Products"
+    href: '/products'   // Link: all products page
   })
     
   // If single category is selected
@@ -42,7 +45,7 @@ export function generateProductBreadcrumbs(searchParams: SearchParams): Breadcru
     const categoryLabel = searchParams.category.charAt(0).toUpperCase() + searchParams.category.slice(1);
     
     breadcrumbs.push({
-      label: categoryLabel,
+      label: categoryLabel, // "Cardio", "Strength", etc.
       href: `/products?category=${searchParams.category}`
     })
   }
@@ -50,7 +53,7 @@ export function generateProductBreadcrumbs(searchParams: SearchParams): Breadcru
   // If multiple categories selected (Equipment section)
   else if (searchParams.categories) {
     breadcrumbs.push({
-      label: 'Equipment', // Text: "Equipment"
+      label: 'Equipment',                                       // Text: "Equipment"
       href: `/products?categories=${searchParams.categories}` // Link with categories param
     })
   }
@@ -58,24 +61,24 @@ export function generateProductBreadcrumbs(searchParams: SearchParams): Breadcru
   // If viewing new arrivals
   else if (searchParams.new_arrival === 'true') {
     breadcrumbs.push({
-      label: 'New Arrivals',
-      href: '/products?newArrivals=true'
+      label: 'New Arrivals',              // Text: "New Arrivals"
+      href: '/products?newArrivals=true'  // Link to new arrivals
     })
   }
   
   // If viewing bestsellers
   else if (searchParams.bestseller === 'true') {
     breadcrumbs.push({
-      label: 'Best Sellers',
-      href: '/products?bestSellers=true'
+      label: 'Best Sellers',              // Text: "Best Sellers"
+      href: '/products?bestSellers=true'  // Link to best sellers
     })
   }
   
   // If viewing sale items
   else if (searchParams.onSale === 'true') {
     breadcrumbs.push({
-      label: 'On Sale',
-      href: '/products?onSale=true'
+      label: 'On Sale',               // Text: "On Sale"
+      href: '/products?onSale=true'   // Link to on sale products
     })
   }
   
@@ -84,8 +87,8 @@ export function generateProductBreadcrumbs(searchParams: SearchParams): Breadcru
     // TODO: Add search breadcrumb
     // Example: Search: "treadmill"
     breadcrumbs.push({
-      label: `Search: "${searchParams.search}"`,
-      href: `/products?search=${searchParams.search}`
+      label: `Search: "${searchParams.search}"`,      // Text: Search: "treadmill"
+      href: `/products?search=${searchParams.search}` // Link to search results
     })
   }
   
