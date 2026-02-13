@@ -1,5 +1,5 @@
 import type { BreadcrumbItem } from '@/components/ui/breadcrumb';
-import type { ProductCategory } from '@/lib/types/products';
+import type { Product, ProductCategory } from '@/lib/types/products';
 
 // Define our own simple type for breadcrumb data
 export type BreadcrumbData = {
@@ -84,7 +84,6 @@ export function generateProductBreadcrumbs(searchParams: SearchParams): Breadcru
   
   // If searching
   else if (searchParams.search) {
-    // TODO: Add search breadcrumb
     // Example: Search: "treadmill"
     breadcrumbs.push({
       label: `Search: "${searchParams.search}"`,      // Text: Search: "treadmill"
@@ -93,4 +92,27 @@ export function generateProductBreadcrumbs(searchParams: SearchParams): Breadcru
   }
   
   return breadcrumbs
+}
+
+/**
+ * Generate breadcrumbs for individual product detail pages
+ * 
+ * Structure: Home > Products > [Category] > Product Name
+ * 
+ * Example: Home > Products > Cardio > Professional Treadmill X3000
+ * 
+ * @param product - Product object from database
+ * @returns Array of breadcrumb items
+ */
+export function generateProductDetailBreadcrumbs(product: Product): BreadcrumbData[] {
+  // Reuse existing category breadcrumb logic
+  const categoryBreadcrumbs = generateProductBreadcrumbs({category: product.category});
+  
+  // Add product name at the end of breadcrumb
+  categoryBreadcrumbs.push({
+    label: product.name,
+    href: `/products/${product.slug}`
+  });
+  
+  return categoryBreadcrumbs;
 }
