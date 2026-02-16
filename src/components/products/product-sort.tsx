@@ -17,12 +17,8 @@ const SORT_OPTIONS: { value: ProductSortOption; label: string }[] = [
 ]
 
 export function ProductSort() {
-  // 🎯 TODO 1: Get current sortBy value from Zustand store
-  // Hint: const sortBy = useFilterStore(???)
   const sortBy = useFilterStore(state => state.sortBy);
   
-  // 🎯 TODO 2: Get setSortBy action from Zustand store
-  // Hint: const setSortBy = useFilterStore(???)
   const setSortBy = useFilterStore(state => state.setSortBy);
 
   return (
