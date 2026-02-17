@@ -1,4 +1,4 @@
-import { ProductGrid } from '@/components/product/product-grid'
+import { ProductGrid } from '@/components/products/product-grid'
 import { Hero } from '@/components/layout/hero'
 import { CategoryNav } from '@/components/layout/category-nav'
 import { getFeaturedProducts } from '@/lib/actions/products'
