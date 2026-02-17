@@ -1,5 +1,41 @@
 'use client'
 
+/**
+ * CartItem
+ *
+ * Renders a single row in the cart for one product. Each row shows:
+ * - Product image (thumbnail, links to product page)
+ * - Product name, category, and a remove (X) button
+ * - QuantityControl stepper wired to updateQuantity in the store
+ * - Price display: line total (qty * effectivePrice), strikethrough original
+ *   if on sale, and a per-unit "each" label
+ * - A stock warning when the customer has reached the available stock limit
+ *
+ * Design decisions:
+ * - Price snapshot: item.price and item.salePrice are copied from the product
+ *   at add-time (in addItem). This means the displayed price is always what
+ *   the customer saw when they added it, not the current DB price.
+ *
+ * - displayPrice uses nullish coalescing (??): item.salePrice ?? item.price.
+ *   This handles three cases cleanly: salePrice is a number (use it),
+ *   salePrice is null/undefined (fall back to price).
+ *
+ * - hasDiscount checks both that salePrice exists AND is less than price.
+ *   The double check prevents showing a strikethrough if sale_price somehow
+ *   equals or exceeds the regular price (data integrity guard).
+ *
+ * - The stock warning triggers at item.quantity >= item.stock (raw DB value),
+ *   not maxQuantity. This means if stock is 3 and the customer has 3 in cart,
+ *   the warning shows even though maxQuantity would be 3 too.
+ *
+ * - The QuantityControl onChange is an arrow function: (newQty) => updateQuantity(...)
+ *   QuantityControl calls this with the new value when + or - is clicked.
+ *   Passing updateQuantity directly would call it immediately during render.
+ *
+ * Usage:
+ *   <CartItem item={cartItem} />
+ */
+
 import Image from 'next/image'
 import Link from 'next/link'
 import { X } from 'lucide-react'
