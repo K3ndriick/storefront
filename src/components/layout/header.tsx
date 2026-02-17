@@ -1,15 +1,16 @@
-'use client'
+'use client';
 
-import Link from 'next/link'
-import { ShoppingCart, User, Menu, X, Search } from 'lucide-react'
-import { useState } from 'react'
-import { MegaMenuShop } from './mega-menu-shop'
-import { MegaMenuServices } from './mega-menu-services'
-import { NavItem } from './nav-item'
+import Link from 'next/link';
+import { ShoppingCart, User, Menu, X, Search } from 'lucide-react';
+import { useState } from 'react';
+import { MegaMenuShop } from './mega-menu-shop';
+import { MegaMenuServices } from './mega-menu-services';
+import { NavItem } from './nav-item';
+import { useCartStore } from '@/store/useCartStore';
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const cartItemCount = 3 // TODO: Replace with Zustand
+  const cartItemCount = useCartStore(state => state.itemCount()); //computed value function
 
   return (
     <>
