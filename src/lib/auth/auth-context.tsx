@@ -193,7 +193,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }
 
   const resetPassword = async (email: string) => {
-    // TODO: Call supabase.auth.resetPasswordForEmail()
+    // Call supabase.auth.resetPasswordForEmail()
     //
     // resetPasswordForEmail takes: (email, options)
     // options.redirectTo is the URL Supabase puts in the reset email link.
@@ -205,10 +205,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     //
     // window.location.origin gives the base URL (e.g. 'http://localhost:3000')
     // so the full redirectTo becomes: 'http://localhost:3000/auth/callback?next=/forgot-password/confirm'
+
+    const { error } = await supabase.auth.resetPasswordForEmail(
+      email, { redirectTo: `${window.location.origin}/auth/callback?next=/forgot-password/confirm` });
+
+    if (error) {
+      throw error;
+    }
   }
 
   const updateProfile = async (updates: Partial<Profile>) => {
-    // TODO: Update the user's row in the profiles table
+    // Update the user's row in the profiles table
     //
     // Steps:
     //   1. If !user, throw new Error('No user logged in')
@@ -222,6 +229,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     //
     //   4. Re-fetch the profile so local state reflects the new values:
     //      await fetchProfile(user.id)
+    if (!user) {
+      throw new Error("No user logged in");
+    }
+
+    const { error } = await supabase.from('profiles').update(updates).eq('id', user.id)
+
+    if (error) {
+      throw error;
+    }
+
+    await fetchProfile(user.id);
   }
 
   // =============================================================
@@ -232,12 +250,21 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   // =============================================================
 
   const value: AuthContextType = {
-    // TODO: Fill in this object
-    // It should contain all the state variables and all the methods above.
-    // Look at the AuthContextType definition in lib/types/auth.ts for the shape.
-    //
-    // Hint: the keys must exactly match the AuthContextType interface.
-  } as AuthContextType // temporary cast - remove once the object is complete
+    // explicit form
+    user: user,
+    profile: profile,
+    session: session,
+    loading: loading,
+
+    // alternatively can shorthand it from signUp: signUp to just signUp, works for methods as well
+
+    // shorthand form
+    signUp,
+    signIn,
+    signOut,
+    resetPassword,
+    updateProfile,
+  }
 
   return (
     <AuthContext.Provider value={value}>
