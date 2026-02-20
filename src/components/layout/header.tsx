@@ -1,7 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-import { ShoppingCart, User, Menu, X, Search } from 'lucide-react';
+import { ShoppingCart, Menu, X, Search } from 'lucide-react';
+import { UserMenu } from '@/components/auth/user-menu';
 import { useState } from 'react';
 import { MegaMenuShop } from './mega-menu-shop';
 import { MegaMenuServices } from './mega-menu-services';
@@ -77,13 +78,9 @@ export function Header() {
               </button>
 
               {/* User Account */}
-              <Link
-                href="/login"
-                className="hidden sm:block text-foreground hover:text-accent transition-colors"
-                aria-label="Account"
-              >
-                <User className="h-6 w-6" />
-              </Link>
+              <div className="hidden sm:block">
+                <UserMenu />
+              </div>
 
               {/* Cart with Badge */}
               <Link
@@ -142,13 +139,9 @@ export function Header() {
               >
                 Contact
               </Link>
-              <Link
-                href="/login"
-                className="text-foreground hover:text-accent font-medium sm:hidden"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                Account
-              </Link>
+              <div className="sm:hidden">
+                <UserMenu />
+              </div>
             </div>
           </div>
         </div>
