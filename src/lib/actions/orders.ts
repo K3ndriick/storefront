@@ -92,17 +92,18 @@ export const createOrder = async (data: CreateOrderData): Promise<Order> => {
   //
   // Use .map() to build orderItems, then insert into 'order_items'
   let orderItems = data.cart_items.map((cartItemInput) => ({
+    // ensure that object's attributes here match the exact spelling of columns in DB
     order_id: order.id,
     product_id: cartItemInput.product_id,
     product_name: cartItemInput.product_name,
     product_image: cartItemInput.product_image,
-    product_price: cartItemInput.price,
-    product_quantity: cartItemInput.quantity
+    price: cartItemInput.price,
+    quantity: cartItemInput.quantity
   }));
 
   const { data: orderItemsData, error: orderItemsError } = await supabase
     .from('order_items')
-    .insert({orderItems})
+    .insert(orderItems)
   
   if (orderItemsError) throw orderItemsError;
   
@@ -112,10 +113,11 @@ export const createOrder = async (data: CreateOrderData): Promise<Order> => {
   // For each item, call supabase.rpc('reduce_stock', { product_id, quantity })
   // This calls the atomic SQL function we wrote in the schema.
   //
-  // TODO: write the for...of loop
   for (const cartItem of data.cart_items) {
-    const { data: cartItem, error: cartItemError } = await supabase
-      .rpc('reduce_stock', { cartItem.product_id, cartItem.product_quantity })
+    const { error: stockError } = await supabase
+      .rpc('reduce_stock', { product_id: cartItem.product_id, quantity: cartItem.quantity }) // explicitly state the matched value from 
+      // CREATE OR REPLACE FUNCTION reduce_stock has return void, so no need for data: xxxData attribute here
+    if (stockError) throw stockError; 
   }
 
   // STEP 5 - Return the created order
