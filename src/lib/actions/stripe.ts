@@ -25,7 +25,7 @@ export const createPaymentIntent = async (amount: number) => {
       automatic_payment_methods: { enabled: true }
     });
 
-    // Rreturn an object with two fields:
+    // Return an object with two fields:
     //   - clientSecret: paymentIntent.client_secret
     //   - paymentIntentId: paymentIntent.id
     return {
