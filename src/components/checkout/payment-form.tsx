@@ -119,9 +119,8 @@ export const PaymentForm = ({ shippingAddress, paymentIntentId }: Props) => {
       router.push(`/checkout/success?order_id=${order.id}`);
 
     } catch (error) {
-      if (error instanceof Error) {
-        toast.error("Unable to process payment");
-      }
+      toast.error(error instanceof Error ? error.message : 'Unable to process payment');
+
       setIsProcessing(false);
       return;
     }
