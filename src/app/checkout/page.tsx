@@ -32,10 +32,12 @@ export default function CheckoutPage() {
   const [clientSecret, setClientSecret] = useState<string | null>(null);
   const [paymentIntentId, setPaymentIntentId] = useState<string | null>(null);
 
-  // Redirect to cart if there's nothing to check out
+  // Redirect to cart if there's nothing to check out.
+  // Only on step 1 - on step 2 the cart will be empty after a successful
+  // payment and we don't want to override the success page redirect.
   useEffect(() => {
-    if (items.length === 0) router.push('/cart')
-  }, [items, router]);
+    if (step === 1 && items.length === 0) router.push('/cart')
+  }, [items, router, step]);
 
   // ============================================================
   // SHIPPING SUBMIT HANDLER
