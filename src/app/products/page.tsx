@@ -145,24 +145,17 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
               <ProductSort />
             </div>
 
-            {/* Mobile Filters Button (Optional - TODO: Add Sheet/Drawer) */}
-            {/* Uncomment when you want to add mobile filters
-            <div className="lg:hidden mb-6">
+            {/* Uncomment when you want to add mobile filters */}
+            {/* <div className="lg:hidden mb-6">
               <Button variant="outline" className="w-full">
                 <Filter className="mr-2 h-4 w-4" />
                 Filters
               </Button>
-            </div>
-            */}
+            </div> */}
 
             {/* Filtered Product Grid */}
             <FilteredProductList
               products={products}
-              serverFilters={{
-                category: params.category,
-                search: params.search,
-                onSale: params.onSale === 'true',
-              }}
             />
             
           </div>
