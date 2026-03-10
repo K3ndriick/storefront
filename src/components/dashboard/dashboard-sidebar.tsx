@@ -3,12 +3,12 @@
 /**
  * DashboardSidebar
  *
- * Client Component — needs to be a client component because it uses
+ * Client Component - needs to be a client component because it uses
  * the usePathname() hook to highlight the currently active nav link.
  * Hooks cannot run in Server Components.
  *
  * Props:
- *   userName — the user's full name (or null), fetched server-side in layout.tsx
+ *   userName - the user's full name (or null), fetched server-side in layout.tsx
  *              and passed down as a prop. We don't fetch it here because that would
  *              require an extra client-side round trip.
  */
@@ -20,9 +20,9 @@ import { ShoppingBag, User, Settings } from 'lucide-react';
 // ============================================================
 // NAV ITEMS
 // Each item has:
-//   href  — the route it links to
-//   label — the text shown in the sidebar
-//   icon  — a Lucide icon component
+//   href  - the route it links to
+//   label - the text shown in the sidebar
+//   icon  - a Lucide icon component
 // ============================================================
 
 const navItems = [
@@ -38,7 +38,7 @@ type Props = {
 export function DashboardSidebar({ userName }: Props) {
 
   // ============================================================
-  // YOUR TASK: Get the current pathname
+  // Get the current pathname
   //
   // Call the usePathname() hook and store the result in a variable
   // called `pathname`. This gives you the current URL path as a
@@ -47,7 +47,7 @@ export function DashboardSidebar({ userName }: Props) {
   // You'll use it below to detect which nav item is active.
   // ============================================================
 
-  // TODO: const pathname = ...
+  const pathname = usePathname();
 
 
   return (
@@ -64,7 +64,7 @@ export function DashboardSidebar({ userName }: Props) {
         {navItems.map(({ href, label, icon: Icon }) => {
 
           // ============================================================
-          // YOUR TASK: Determine if this nav item is active
+          // Determine if this nav item is active
           //
           // A link is "active" when the current page is that link's route.
           // Use pathname (from above) and check if it starts with `href`.
@@ -76,7 +76,7 @@ export function DashboardSidebar({ userName }: Props) {
           // Store the result in a boolean variable called `isActive`.
           // ============================================================
 
-          // TODO: const isActive = ...
+          const isActive = pathname.startsWith(href)
 
           return (
             <Link
@@ -84,7 +84,7 @@ export function DashboardSidebar({ userName }: Props) {
               href={href}
               className={`
                 flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors
-                ${false /* replace false with isActive */
+                ${isActive 
                   ? 'bg-primary text-primary-foreground'
                   : 'text-muted-foreground hover:bg-muted hover:text-foreground'
                 }
