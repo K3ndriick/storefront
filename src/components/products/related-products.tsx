@@ -25,7 +25,7 @@ interface RelatedProductsProps {
  * - Can call server actions
  * - Cannot use useState, useEffect, etc.
  */
-export async function RelatedProducts({ currentProduct, limit = 4 }: RelatedProductsProps) {
+export async function RelatedProducts({ currentProduct, limit = 3 }: RelatedProductsProps) {
   // ==================== FETCH DATA ====================
   
   /**
@@ -61,7 +61,7 @@ export async function RelatedProducts({ currentProduct, limit = 4 }: RelatedProd
       </div>
 
       {/* ==================== PRODUCT GRID ==================== */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
         {relatedProducts.map((product) => (
           <ProductCard key={product.id} product={product} />
           ))}
@@ -127,7 +127,7 @@ export async function RelatedProducts({ currentProduct, limit = 4 }: RelatedProd
  */
 
 
-export async function RelatedProductsScroll({ currentProduct, limit = 4 }: { currentProduct: Product, limit?: number}) {
+export async function RelatedProductsScroll({ currentProduct, limit = 3 }: { currentProduct: Product, limit?: number}) {
   const relatedProducts = await getRelatedProducts(currentProduct, limit);
 
   if (!relatedProducts || relatedProducts.length === 0) {
@@ -142,7 +142,7 @@ export async function RelatedProductsScroll({ currentProduct, limit = 4 }: { cur
     
     { /* Horizontal scroll on mobile, grid on desktop */ } 
     <div className="overflow-x-auto lg:overflow-x-visible pb-4">
-      <div className="flex gap-6 lg:grid lg:grid-cols-4 lg:gap-8 min-w-max lg:min-w-0">
+      <div className="flex gap-6 lg:grid lg:grid-cols-3 lg:gap-8 min-w-max lg:min-w-0">
         {relatedProducts.map((product) => (
           <div key={product.id} className="w-[280px] lg:w-auto flex-shrink-0">
             <ProductCard product={product} />
