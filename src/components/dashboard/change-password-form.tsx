@@ -92,7 +92,7 @@ export function ChangePasswordForm() {
       </div>
 
       {error   && <p className="text-sm text-destructive">{error}</p>}
-      {success && <p className="text-sm text-green-600">Password updated.</p>}
+      {success && <p className="text-sm text-success">Password updated.</p>}
 
       <Button type="submit" disabled={saving}>
         {saving ? 'Saving...' : 'Update password'}

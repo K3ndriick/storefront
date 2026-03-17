@@ -60,11 +60,11 @@ export function ProductInfo({ product }: ProductInfoProps) {
       {/* Display stock status badge */}
       <div>
         <Badge className={
-          stockStatus.badgeVariant === 'destructive' 
+          stockStatus.badgeVariant === 'destructive'
             ? 'bg-destructive text-destructive-foreground'
             : stockStatus.badgeVariant === 'warning'
-            ? 'bg-orange-500 text-white'
-            : 'bg-green-500 text-white'
+            ? 'badge-status-pending'
+            : 'badge-status-delivered'
         }>
           {stockStatus.message}
         </Badge>

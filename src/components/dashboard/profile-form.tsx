@@ -104,7 +104,7 @@ export function ProfileForm({ profile, email }: Props) {
 
       {/* Feedback messages */}
       {error   && <p className="text-sm text-destructive">{error}</p>}
-      {success && <p className="text-sm text-green-600">Profile updated.</p>}
+      {success && <p className="text-sm text-success">Profile updated.</p>}
 
       <Button type="submit" disabled={saving}>
         {saving ? 'Saving...' : 'Save changes'}

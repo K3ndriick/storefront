@@ -86,6 +86,11 @@
     --status-delivered-fg: 140 64% 22%;   /* Green-900 */
     --status-cancelled-bg: 0 94% 94%;     /* Red-100 */
     --status-cancelled-fg: 0 72% 30%;     /* Red-900 */
+
+    /* ========================================
+        SUCCESS (Inline positive feedback text)
+       ======================================== */
+    --success: 140 64% 22%;               /* Dark green - readable on white */
     
     /* ========================================
         BORDER RADIUS (Geometric, minimal)
@@ -145,6 +150,9 @@
     CUSTOM UTILITIES (Minimal additions only)
    ======================================== */
 @layer utilities {
+  /* Success text */
+  .text-success { color: hsl(var(--success)); }
+
   /* Order status badge utility classes */
   .badge-status-pending    { background-color: hsl(var(--status-pending-bg));    color: hsl(var(--status-pending-fg)); }
   .badge-status-processing { background-color: hsl(var(--status-processing-bg)); color: hsl(var(--status-processing-fg)); }

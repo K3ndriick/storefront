@@ -55,7 +55,7 @@ export function CartSummary() {
         <div className="flex justify-between">
           <span className="text-muted-foreground">Shipping</span>
           {shipping === 0
-            ? <span className="text-green-600 font-medium">FREE</span>
+            ? <span className="text-success font-medium">FREE</span>
             : <span>${shipping.toFixed(2)}</span>
           }
         </div>
