@@ -72,6 +72,20 @@
        ======================================== */
     --destructive: 0 84% 60%;             /* Red #EF4444 */
     --destructive-foreground: 0 0% 98%;   /* White */
+
+    /* ========================================
+        STATUS COLORS (Order status badges)
+       ======================================== */
+    --status-pending-bg: 45 96% 89%;      /* Amber-100 */
+    --status-pending-fg: 28 79% 27%;      /* Amber-900 */
+    --status-processing-bg: 214 95% 93%;  /* Blue-100 */
+    --status-processing-fg: 224 67% 28%;  /* Blue-900 */
+    --status-shipped-bg: 269 100% 95%;    /* Purple-100 */
+    --status-shipped-fg: 263 54% 31%;     /* Purple-900 */
+    --status-delivered-bg: 142 77% 93%;   /* Green-100 */
+    --status-delivered-fg: 140 64% 22%;   /* Green-900 */
+    --status-cancelled-bg: 0 94% 94%;     /* Red-100 */
+    --status-cancelled-fg: 0 72% 30%;     /* Red-900 */
     
     /* ========================================
         BORDER RADIUS (Geometric, minimal)
@@ -131,6 +145,13 @@
     CUSTOM UTILITIES (Minimal additions only)
    ======================================== */
 @layer utilities {
+  /* Order status badge utility classes */
+  .badge-status-pending    { background-color: hsl(var(--status-pending-bg));    color: hsl(var(--status-pending-fg)); }
+  .badge-status-processing { background-color: hsl(var(--status-processing-bg)); color: hsl(var(--status-processing-fg)); }
+  .badge-status-shipped    { background-color: hsl(var(--status-shipped-bg));    color: hsl(var(--status-shipped-fg)); }
+  .badge-status-delivered  { background-color: hsl(var(--status-delivered-bg));  color: hsl(var(--status-delivered-fg)); }
+  .badge-status-cancelled  { background-color: hsl(var(--status-cancelled-bg));  color: hsl(var(--status-cancelled-fg)); }
+
   /* Hide scrollbar but keep functionality */
   .scrollbar-hide {
     -ms-overflow-style: none;

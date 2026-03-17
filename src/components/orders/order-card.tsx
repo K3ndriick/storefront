@@ -3,11 +3,11 @@ import type { Order } from '@/lib/types/order';
 
 // Maps each order status to a Tailwind colour so the badge is visually distinct
 const statusStyles: Record<Order['status'], string> = {
-  pending:    'bg-yellow-100 text-yellow-800',
-  processing: 'bg-blue-100 text-blue-800',
-  shipped:    'bg-purple-100 text-purple-800',
-  delivered:  'bg-green-100 text-green-800',
-  cancelled:  'bg-red-100 text-red-800',
+  pending:    'badge-status-pending',
+  processing: 'badge-status-processing',
+  shipped:    'badge-status-shipped',
+  delivered:  'badge-status-delivered',
+  cancelled:  'badge-status-cancelled',
 }
 
 type Props = {
