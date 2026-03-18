@@ -36,7 +36,7 @@ export function AddToCartButton({ product, disabled = false }: AddToCartButtonPr
 
     try {
       addItem(product, 1);
-      toast.success("Added to cart", { description: product.name });
+      toast.success(`${product.name} added to cart`);
     } catch (error) {
       toast.error(error instanceof Error ? error.message : 'Failed to add to cart');
     } finally {
