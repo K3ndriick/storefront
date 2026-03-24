@@ -46,7 +46,7 @@ export async function getAdminOrderById(id: string): Promise<OrderWithItems> {
 }
 
 export async function updateOrderStatus(id: string, status: OrderStatus): Promise<string | null> {
-  if (!ORDER_STATUSES.includes(status)) return 'Invalid status'
+  if (!ORDER_STATUSES.includes(status)) return 'Invalid status';
   
   const supabase = createAdminClient();
 
