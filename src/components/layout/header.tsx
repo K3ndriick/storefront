@@ -32,18 +32,10 @@ export function Header() {
             {/* Desktop Navigation with Mega Menus */}
             <nav className="hidden md:flex items-center space-x-12">
 
-              {/* Admin - With Mega Menu */}
+              {/* Admin - No Mega Menu */}
               {role === "admin" && (
-                <div className="group relative">
-                  {/* Nav item with higher z-index so underline appears above mega menu */}
-                  <div className="relative z-20">
-                    <NavItem href="/admin">Admin</NavItem>
-                  </div>
-                  
-                  {/* Mega Menu - lower z-index, positioned absolutely from viewport edge */}
-                  <div className="fixed left-0 right-0 top-[64px] z-10">
-                    <MegaMenuShop />
-                  </div>
+                <div className="relative">
+                  <NavItem href="/admin">Admin</NavItem>
                 </div>
               )}
               

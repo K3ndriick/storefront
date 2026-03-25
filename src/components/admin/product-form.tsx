@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { createProduct, updateProduct } from '@/lib/actions/admin/products';
+import { createProduct, updateProduct, deleteProduct } from '@/lib/actions/admin/products';
 import type { Product } from '@/lib/types/products';
 
 type Props = {
@@ -33,6 +33,8 @@ export function ProductForm({ product } : Props) {
 
   const [saving, setSaving] = useState(false);
   const [error,  setError]  = useState<string | null>(null);
+  const [confirmDelete, setConfirmDelete] = useState(false);
+  const [deleting, setDeleting] = useState(false);
 
   function handleNameChange(value: string) {
     setName(value);
@@ -213,6 +215,56 @@ export function ProductForm({ product } : Props) {
           Cancel
         </Button>
       </div>
+
+      {isEdit && (
+        <div className="border-t pt-8">
+          <h2 className="font-semibold text-sm uppercase tracking-wide text-muted-foreground mb-4">
+            Danger Zone
+          </h2>
+          {!confirmDelete ? (
+            <Button
+              type="button"
+              variant="outline"
+              className="border-destructive text-destructive hover:bg-destructive hover:text-destructive-foreground"
+              onClick={() => setConfirmDelete(true)}
+            >
+              Delete Product
+            </Button>
+          ) : (
+            <div className="flex items-center gap-4">
+              <p className="text-sm text-destructive font-medium">
+                This will remove the product from the storefront. Are you sure?
+              </p>
+              <Button
+                type="button"
+                variant="destructive"
+                disabled={deleting}
+                onClick={async () => {
+                  setDeleting(true);
+                  const result = await deleteProduct(product!.id);
+                  if (result) {
+                    setError(result);
+                    setDeleting(false);
+                    setConfirmDelete(false);
+                  } else {
+                    router.push('/admin/products');
+                  }
+                }}
+              >
+                {deleting ? 'Deleting...' : 'Yes, Delete'}
+              </Button>
+              <Button
+                type="button"
+                variant="outline"
+                disabled={deleting}
+                onClick={() => setConfirmDelete(false)}
+              >
+                Cancel
+              </Button>
+            </div>
+          )}
+        </div>
+      )}
     </form>
   )
 }
