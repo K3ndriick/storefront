@@ -8,10 +8,12 @@ import { MegaMenuShop } from './mega-menu-shop';
 import { MegaMenuServices } from './mega-menu-services';
 import { NavItem } from './nav-item';
 import { useCartStore } from '@/store/useCartStore';
+import { useAuth } from '@/lib/auth/auth-context';
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const cartItemCount = useCartStore(state => state.itemCount()); //computed value function
+  const { role } = useAuth();
 
   return (
     <>
@@ -29,6 +31,21 @@ export function Header() {
 
             {/* Desktop Navigation with Mega Menus */}
             <nav className="hidden md:flex items-center space-x-12">
+
+              {/* Admin - With Mega Menu */}
+              {role === "admin" && (
+                <div className="group relative">
+                  {/* Nav item with higher z-index so underline appears above mega menu */}
+                  <div className="relative z-20">
+                    <NavItem href="/admin">Admin</NavItem>
+                  </div>
+                  
+                  {/* Mega Menu - lower z-index, positioned absolutely from viewport edge */}
+                  <div className="fixed left-0 right-0 top-[64px] z-10">
+                    <MegaMenuShop />
+                  </div>
+                </div>
+              )}
               
               {/* Shop - With Mega Menu */}
               <div className="group relative">
@@ -118,6 +135,16 @@ export function Header() {
         <div className="md:hidden border-b bg-background">
           <div className="max-w-7xl mx-auto px-4 py-4">
             <div className="flex flex-col space-y-4">
+              {role === "admin" && (
+              <Link
+                href="/admin"
+                className="text-foreground hover:text-accent font-medium"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Admin
+              </Link>
+              )}
+
               <Link
                 href="/products"
                 className="text-foreground hover:text-accent font-medium"
