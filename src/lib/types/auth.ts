@@ -58,6 +58,7 @@ export type Profile = {
 export type AuthContextType = {
   // --- State ---
   user: User | null            // The Supabase auth user (null if logged out)
+  role: string | null            // The Supabase auth user (null if logged out)
   profile: Profile | null      // Our profiles table row (null if logged out)
   session: Session | null      // The active session with tokens (null if logged out)
   loading: boolean             // True while auth state is being determined on page load

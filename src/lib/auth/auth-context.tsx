@@ -51,6 +51,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [profile, setProfile] = useState<Profile | null>(null);
   const [session, setSession] = useState<Session | null>(null);
   const [loading, setLoading] = useState(true);
+  const [role, setRole] = useState<string | null>(null);
   // loading starts as true - we don't know the auth state yet on first render.
   // It becomes false once we've checked cookies and fetched the profile.
   // Components can use this to avoid rendering before auth is confirmed.
@@ -113,13 +114,18 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       // If data exists, call setProfile(data) to store it in state.
       // INTERNAL HELPER METHOD - errors logged, app continues
 
-      const { data, error } = await supabase.from('profiles').select('*').eq('id', userId).single();
+      const { data, error } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('id', userId)
+        .single();
 
       if (error) {
         throw error;
       }
 
       setProfile(data);
+      setRole(data.role);
 
     } catch (error) {
       console.error('Error fetching profile:', error);
@@ -269,6 +275,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const value: AuthContextType = {
     // explicit form
     user: user,
+    role: role,
     profile: profile,
     session: session,
     loading: loading,
