@@ -22,6 +22,9 @@ export default function CheckoutPage() {
   const router = useRouter();
   const { user } = useAuth();
   const items = useCartStore(state => state.items);
+  const subtotal = useCartStore(state => state.subtotal());
+  const tax = useCartStore(state => state.tax());
+  const shipping = useCartStore(state => state.shipping());
   const total = useCartStore(state => state.total());
 
   // Step tracker: 1 = shipping address, 2 = payment
@@ -59,8 +62,27 @@ export default function CheckoutPage() {
   // Note: createPaymentIntent is async - this function must be async too
   const handleShippingSubmit = async (address: ShippingAddress) => {
     setShippingAddress(address);
+
+    const cartItems = items.map((item) => ({
+      product_id: item.productId,
+      product_name: item.name,
+      product_image: item.image,
+      price: item.salePrice ?? item.price,
+      quantity: item.quantity
+    }));
     
-    const paymentIntent = await createPaymentIntent(total);
+    const paymentIntent = await createPaymentIntent(
+      total,
+      {
+        user_id: user!.id,
+        cart_items: cartItems,
+        shipping_address: address,
+        subtotal: subtotal,
+        tax: tax,
+        shipping: shipping,
+        total: total
+      }
+    );
     
     setClientSecret(paymentIntent.clientSecret);
     setPaymentIntentId(paymentIntent.paymentIntentId);
