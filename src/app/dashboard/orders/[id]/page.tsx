@@ -52,7 +52,7 @@ export default async function OrderDetailPage({ params }: Props) {
       <div className="max-w-3xl mx-auto px-4">
 
         {/* Back link */}
-        <Link href="/orders" className="text-sm text-muted-foreground hover:text-foreground mb-6 inline-block">
+        <Link href="/dashboard/orders" className="text-sm text-muted-foreground hover:text-foreground mb-6 inline-block">
           &larr; Back to orders
         </Link>
 
