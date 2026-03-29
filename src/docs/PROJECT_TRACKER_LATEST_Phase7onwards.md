@@ -1,8 +1,8 @@
 # PowerProShop - Master Project Tracker [LATEST]
 
-**Last Updated:** March 25, 2026
+**Last Updated:** March 29, 2026
 **Current Phase:** Phase 7 - Product Reviews (next)
-**Overall Progress:** ~88% complete
+**Overall Progress:** ~90% complete
 **Previous tracker files:** Supersedes `PROJECT_STATUS_UPDATED.md` and `PROJECT_TRACKER_UPDATED.md`
 
 ---
@@ -24,7 +24,7 @@ Phase 9: Admin          [####################] 100% - Complete
 Phase 10: Inventory     [--------------------]   0% - Planned
 ```
 
-**Progress:** 88% | **Time Invested:** ~98 hours | **Remaining:** ~30 hours
+**Progress:** 90% | **Time Invested:** ~101 hours | **Remaining:** ~27 hours
 
 ---
 
@@ -368,8 +368,8 @@ RESEND_API_KEY=   # or SENDGRID_API_KEY
 None currently.
 
 ### Technical Debt (from post-phase-5-tasks.md)
-- Stripe webhook handler missing: orders currently created client-side only. If browser closes mid-payment the order may not be created. Webhook handler would create orders server-side as a fallback.
-- Stock reservation system missing: no inventory hold during checkout. Risk of overselling if two users buy the last unit simultaneously.
+- ~~Stripe webhook handler missing~~ - **Complete (March 29, 2026).** Orders now created server-side via webhook as fallback. `pending_orders` staging table + idempotency via unique constraint on `stripe_payment_intent_id`.
+- Stock reservation system missing: no inventory hold during checkout. Risk of overselling if two users buy the last unit simultaneously. Addressed in Phase 10.
 
 ### Future Enhancements (Post-Phase 10)
 - Mini cart dropdown preview
