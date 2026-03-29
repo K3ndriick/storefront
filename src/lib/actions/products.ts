@@ -302,16 +302,25 @@ export async function getFeaturedProducts(limit: number = 6): Promise<Product[]>
  */
 export async function searchProducts(query: string): Promise<Product[]> {
   const supabase = await createClient()
-  
+
+  // Append :* to each word to enable prefix matching.
+  // e.g. "tread mill" becomes "tread:* & mill:*"
+  // This allows partial words like "tread" to match "treadmill".
+  const prefixQuery = query
+    .trim()
+    .split(/\s+/)
+    .map((word) => `${word}:*`)
+    .join(' & ')
+
   const { data, error } = await supabase
     .from('products')
     .select('*')
-    .textSearch('search_vector', query)  // Full-text search
+    .textSearch('search_vector', prefixQuery)
     .is('deleted_at', null)
-    .eq('in_stock', true)                // Only show in-stock in search
-    .limit(20)                           // Reasonable limit for search results
-  
+    .eq('in_stock', true)
+    .limit(20)
+
   if (error) throw new Error(`Failed to search products: ${error.message}`);
-  
+
   return data || []
 }

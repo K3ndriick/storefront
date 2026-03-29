@@ -1,19 +1,82 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { ShoppingCart, Menu, X, Search } from 'lucide-react';
 import { UserMenu } from '@/components/auth/user-menu';
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { MegaMenuShop } from './mega-menu-shop';
 import { MegaMenuServices } from './mega-menu-services';
 import { NavItem } from './nav-item';
 import { useCartStore } from '@/store/useCartStore';
 import { useAuth } from '@/lib/auth/auth-context';
+import { searchProducts } from '@/lib/actions/products';
+import type { Product } from '@/lib/types/products';
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const cartItemCount = useCartStore(state => state.itemCount()); //computed value function
+  const [searchOpen, setSearchOpen]         = useState(false)
+  const [searchQuery, setSearchQuery]       = useState('')
+  const [results, setResults]               = useState<Product[]>([])
+  const [searching, setSearching]           = useState(false)
+
+  const searchInputRef  = useRef<HTMLInputElement>(null)
+  const searchWrapperRef = useRef<HTMLDivElement>(null)
+
+  const cartItemCount = useCartStore(state => state.itemCount());
   const { role } = useAuth();
+  const router = useRouter()
+
+  // Debounced search - fires 300ms after the user stops typing
+  useEffect(() => {
+    const q = searchQuery.trim()
+    if (!q) { setResults([]); return }
+
+    const timer = setTimeout(async () => {
+      setSearching(true)
+      try {
+        const data = await searchProducts(q)
+        setResults(data.slice(0, 6))
+      } catch {
+        setResults([])
+      } finally {
+        setSearching(false)
+      }
+    }, 300)
+
+    return () => clearTimeout(timer)
+  }, [searchQuery])
+
+  // Close dropdown when clicking outside the search wrapper
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (searchWrapperRef.current && !searchWrapperRef.current.contains(e.target as Node)) {
+        closeSearch()
+      }
+    }
+    if (searchOpen) document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [searchOpen])
+
+  function openSearch() {
+    setSearchOpen(true)
+    setTimeout(() => searchInputRef.current?.focus(), 0)
+  }
+
+  function closeSearch() {
+    setSearchOpen(false)
+    setSearchQuery('')
+    setResults([])
+  }
+
+  function handleSearchSubmit(e: React.SyntheticEvent<HTMLFormElement>) {
+    e.preventDefault()
+    const q = searchQuery.trim()
+    if (!q) return
+    closeSearch()
+    router.push(`/products?search=${encodeURIComponent(q)}`)
+  }
 
   return (
     <>
@@ -21,7 +84,7 @@ export function Header() {
       <header className="sticky top-0 z-50 w-full border-b bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
-            
+
             {/* Logo */}
             <Link href="/" className="flex items-center z-10">
               <span className="text-xl font-bold text-foreground">
@@ -38,15 +101,12 @@ export function Header() {
                   <NavItem href="/admin">Admin</NavItem>
                 </div>
               )}
-              
+
               {/* Shop - With Mega Menu */}
               <div className="group relative">
-                {/* Nav item with higher z-index so underline appears above mega menu */}
                 <div className="relative z-20">
                   <NavItem href="/products">Shop</NavItem>
                 </div>
-                
-                {/* Mega Menu - lower z-index, positioned absolutely from viewport edge */}
                 <div className="fixed left-0 right-0 top-[64px] z-10">
                   <MegaMenuShop />
                 </div>
@@ -54,12 +114,9 @@ export function Header() {
 
               {/* Services - With Mega Menu */}
               <div className="group relative">
-                {/* Nav item with higher z-index so underline appears above mega menu */}
                 <div className="relative z-20">
                   <NavItem href="/services">Services</NavItem>
                 </div>
-                
-                {/* Mega Menu - lower z-index, positioned absolutely from viewport edge */}
                 <div className="fixed left-0 right-0 top-[64px] z-10">
                   <MegaMenuServices />
                 </div>
@@ -70,21 +127,89 @@ export function Header() {
                 <div className="relative z-20">
                   <NavItem href="/contact">Contact</NavItem>
                 </div>
-                {/* No mega menu, but same wrapper structure */}
-              </div>           
+              </div>
 
             </nav>
 
             {/* Right Actions */}
             <div className="flex items-center space-x-4 z-10">
-              
+
               {/* Search */}
-              <button
-                className="text-foreground hover:text-accent transition-colors"
-                aria-label="Search"
-              >
-                <Search className="h-6 w-6" />
-              </button>
+              {searchOpen ? (
+                <div ref={searchWrapperRef} className="relative">
+                  <form onSubmit={handleSearchSubmit} className="flex items-center gap-2">
+                    <input
+                      ref={searchInputRef}
+                      type="text"
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      onKeyDown={(e) => e.key === 'Escape' && closeSearch()}
+                      placeholder="Search products..."
+                      className="w-56 border-b border-foreground bg-transparent text-sm outline-none placeholder:text-muted-foreground"
+                    />
+                    <button type="submit" aria-label="Submit search" className="text-foreground hover:text-accent transition-colors">
+                      <Search className="h-5 w-5" />
+                    </button>
+                    <button type="button" onClick={closeSearch} aria-label="Close search" className="text-foreground hover:text-accent transition-colors">
+                      <X className="h-5 w-5" />
+                    </button>
+                  </form>
+
+                  {/* Dropdown */}
+                  {(results.length > 0 || searching) && (
+                    <div className="absolute right-0 top-full mt-2 w-80 bg-background border shadow-lg z-50">
+                      {searching && (
+                        <p className="px-4 py-3 text-sm text-muted-foreground">Searching...</p>
+                      )}
+                      {!searching && results.map((product) => (
+                        <Link
+                          key={product.id}
+                          href={`/products/${product.slug}`}
+                          onClick={closeSearch}
+                          className="flex items-center gap-3 px-4 py-3 hover:bg-muted transition-colors"
+                        >
+                          {product.primary_image ? (
+                            <Image
+                              src={product.primary_image}
+                              alt={product.name}
+                              width={40}
+                              height={40}
+                              className="w-10 h-10 object-cover rounded-none shrink-0"
+                            />
+                          ) : (
+                            <div className="w-10 h-10 bg-muted shrink-0" />
+                          )}
+                          <div className="flex-1 min-w-0">
+                            <p className="text-sm font-medium truncate">{product.name}</p>
+                            <p className="text-xs text-muted-foreground">
+                              {product.sale_price
+                                ? `$${product.sale_price.toFixed(2)}`
+                                : `$${product.price.toFixed(2)}`}
+                            </p>
+                          </div>
+                        </Link>
+                      ))}
+                      {!searching && results.length > 0 && (
+                        <Link
+                          href={`/products?search=${encodeURIComponent(searchQuery.trim())}`}
+                          onClick={closeSearch}
+                          className="block px-4 py-3 text-sm text-accent border-t hover:bg-muted transition-colors"
+                        >
+                          View all results for &ldquo;{searchQuery.trim()}&rdquo;
+                        </Link>
+                      )}
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <button
+                  onClick={openSearch}
+                  className="text-foreground hover:text-accent transition-colors"
+                  aria-label="Search"
+                >
+                  <Search className="h-6 w-6" />
+                </button>
+              )}
 
               {/* User Account */}
               <div className="hidden sm:flex sm:items-center">
