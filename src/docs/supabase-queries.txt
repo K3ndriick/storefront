@@ -1,0 +1,49 @@
+// =====================================================
+// SUPABASE QUERY METHODS - QUICK REFERENCE
+// =====================================================
+
+// SELECT
+.select('*')                    // All columns
+.select('id, name, price')      // Specific columns
+.select('*, category(*)')       // With relations (joins)
+
+// FILTERS (WHERE clauses)
+.eq('category', 'cardio')                    // WHERE category = 'cardio'
+.neq('category', 'cardio')                   // WHERE category != 'cardio'
+.gt('price', 100)                            // WHERE price > 100
+.gte('price', 100)                           // WHERE price >= 100
+.lt('price', 1000)                           // WHERE price < 1000
+.lte('price', 1000)                          // WHERE price <= 1000
+.in('category', ['cardio', 'strength'])      // WHERE category IN (...)
+.is('deleted_at', null)                      // WHERE deleted_at IS NULL
+.not('sale_price', 'is', null)               // WHERE sale_price IS NOT NULL
+
+// TEXT SEARCH
+.textSearch('search_vector', 'treadmill')    // Full-text search
+.like('name', '%treadmill%')                 // LIKE pattern match
+.ilike('name', '%TREADMILL%')                // Case-insensitive LIKE
+
+// ORDERING (ORDER BY)
+.order('price', { ascending: true })         // ORDER BY price ASC
+.order('price', { ascending: false })        // ORDER BY price DESC
+.order('created_at', { ascending: false })   // Newest first
+
+// PAGINATION
+.limit(10)                                   // LIMIT 10
+.range(0, 9)                                 // LIMIT 10 OFFSET 0 (first 10)
+.range(10, 19)                               // LIMIT 10 OFFSET 10 (next 10)
+
+// SINGLE ROW
+.single()                                    // Expects exactly 1 row
+.maybeSingle()                               // 0 or 1 row (no error if empty)
+
+// CHAINING (all methods chain together)
+const { data } = await supabase
+  .from('products')
+  .select('*')
+  .eq('category', 'cardio')
+  .gte('price', 100)
+  .lte('price', 500)
+  .is('deleted_at', null)
+  .order('price', { ascending: true })
+  .limit(20)
