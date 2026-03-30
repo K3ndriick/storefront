@@ -13,9 +13,11 @@ import { getStripe } from '@/lib/stripe/client';
 import { useAuth } from '@/lib/auth/auth-context';
 import { useCartStore } from '@/store/useCartStore';
 import { createPaymentIntent } from '@/lib/actions/stripe';
+import { reserveCartStock } from '@/lib/actions/reservations';
 import { ShippingAddressForm } from '@/components/checkout/shipping-address-form';
 import { PaymentForm } from '@/components/checkout/payment-form';
 import { OrderSummary } from '@/components/checkout/order-summary';
+import { ReservationTimer } from '@/components/checkout/reservation-timer';
 import type { ShippingAddress } from '@/lib/types/order';
 
 export default function CheckoutPage() {
@@ -34,6 +36,9 @@ export default function CheckoutPage() {
   const [shippingAddress, setShippingAddress] = useState<ShippingAddress | null>(null);
   const [clientSecret, setClientSecret] = useState<string | null>(null);
   const [paymentIntentId, setPaymentIntentId] = useState<string | null>(null);
+  const [reservationError,     setReservationError]     = useState<string | null>(null);
+  const [reservationExpiresAt, setReservationExpiresAt] = useState<Date | null>(null);
+  const [reservationExpired,   setReservationExpired]   = useState(false);
 
   // Redirect to cart if there's nothing to check out.
   // Only on step 1 - on step 2 the cart will be empty after a successful
@@ -61,6 +66,19 @@ export default function CheckoutPage() {
   //
   // Note: createPaymentIntent is async - this function must be async too
   const handleShippingSubmit = async (address: ShippingAddress) => {
+    setReservationError(null);
+
+    // Reserve stock for every cart item before creating the payment intent.
+    // If any item is out of stock, we stop here and surface the error.
+    const reservationResult = await reserveCartStock(
+      items.map((item) => ({ product_id: item.productId, quantity: item.quantity })),
+      user!.id
+    );
+    if (reservationResult) {
+      setReservationError(reservationResult);
+      return;
+    }
+
     setShippingAddress(address);
 
     const cartItems = items.map((item) => ({
@@ -86,7 +104,8 @@ export default function CheckoutPage() {
     
     setClientSecret(paymentIntent.clientSecret);
     setPaymentIntentId(paymentIntent.paymentIntentId);
-    
+    setReservationExpiresAt(new Date(Date.now() + 15 * 60 * 1000));
+
     setStep(2);
   }
 
@@ -125,10 +144,32 @@ export default function CheckoutPage() {
             {/* Render the correct component based on the current step */}
             
             {step === 1 && (
-              <ShippingAddressForm onSubmit={handleShippingSubmit}/>
+              <>
+                {reservationError && (
+                  <p className="text-sm text-destructive border border-destructive/30 bg-destructive/5 px-4 py-3">
+                    {reservationError}
+                  </p>
+                )}
+                <ShippingAddressForm onSubmit={handleShippingSubmit}/>
+              </>
             )}
 
-            {(step === 2 && clientSecret && shippingAddress && paymentIntentId) && (
+            {(step === 2 && reservationExpiresAt) && (
+              <ReservationTimer
+                expiresAt={reservationExpiresAt}
+                onExpire={() => setReservationExpired(true)}
+              />
+            )}
+
+            {(step === 2 && reservationExpired) && (
+              <div className="border border-destructive/30 bg-destructive/5 px-4 py-6 text-center space-y-3">
+                <p className="text-sm font-medium text-destructive">Your reservation has expired.</p>
+                <p className="text-sm text-muted-foreground">Return to your cart and go through checkout again to reserve stock.</p>
+                <a href="/cart" className="inline-block text-sm underline">Return to cart</a>
+              </div>
+            )}
+
+            {(step === 2 && !reservationExpired && clientSecret && shippingAddress && paymentIntentId) && (
               <Elements
                 stripe={getStripe()}
                 options={{ clientSecret }}

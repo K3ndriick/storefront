@@ -31,9 +31,10 @@ export async function reserveCartStock(
 
   for (const item of items) {
     const { error } = await supabase.rpc('reserve_stock', {
-      p_product_id: item.product_id,
-      p_quantity:   item.quantity,
-      p_user_id:    userId,
+      p_product_id:       item.product_id,
+      p_quantity:         item.quantity,
+      p_user_id:          userId,
+      p_duration_minutes: 15,
     });
 
     if (error) {

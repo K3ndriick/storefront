@@ -5,22 +5,25 @@ import { Clock } from 'lucide-react';
 
 type Props = {
   expiresAt: Date;
+  onExpire: () => void;
 };
 
-export function ReservationTimer({ expiresAt }: Props) {
+export function ReservationTimer({ expiresAt, onExpire }: Props) {
   const getSecondsLeft = () =>
     Math.max(0, Math.floor((expiresAt.getTime() - Date.now()) / 1000));
 
   const [secondsLeft, setSecondsLeft] = useState(getSecondsLeft);
 
   useEffect(() => {
-    // Recalculate immediately in case of any delay between prop creation and mount
     setSecondsLeft(getSecondsLeft());
 
     const interval = setInterval(() => {
       const remaining = getSecondsLeft();
       setSecondsLeft(remaining);
-      if (remaining === 0) clearInterval(interval);
+      if (remaining === 0) {
+        clearInterval(interval);
+        onExpire();
+      }
     }, 1000);
 
     return () => clearInterval(interval);
@@ -54,7 +57,7 @@ export function ReservationTimer({ expiresAt }: Props) {
         <span className={`font-mono font-semibold ${isUrgent ? 'text-yellow-700' : ''}`}>
           {formatted}
         </span>
-        {isUrgent && ' — complete your payment soon'}
+        {isUrgent && ' - complete your payment soon'}
       </span>
     </div>
   );
