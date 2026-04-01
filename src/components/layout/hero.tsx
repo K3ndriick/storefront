@@ -18,12 +18,12 @@ export function Hero() {
       <div className="absolute inset-0 bg-black/60" />
 
       {/* Content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-40 md:py-56">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 sm:py-32 md:py-40 lg:py-56">
         <div className="max-w-3xl">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4 sm:mb-6">
             Transform Your Fitness Journey
           </h1>
-          <p className="text-lg md:text-xl text-background/80 mb-8">
+          <p className="text-base sm:text-lg md:text-xl text-background/80 mb-6 sm:mb-8">
             Premium gym equipment and expert repair services.
           </p>
           <div className="flex flex-col sm:flex-row gap-4">

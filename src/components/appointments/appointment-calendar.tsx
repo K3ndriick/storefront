@@ -61,8 +61,8 @@ export default function AppointmentCalendar({ appointments, readOnly = false, he
     }, [appointments, readOnly]);
 
     return (
-        <div className="space-y-3">
-            <div className="flex items-center gap-2 justify-end">
+        <div className="space-y-3 min-w-0">
+            <div className="flex items-center gap-2 flex-wrap justify-end">
                 <button
                     type="button"
                     onClick={() => instanceRef.current?.prev()}
@@ -85,7 +85,7 @@ export default function AppointmentCalendar({ appointments, readOnly = false, he
                     {'Next >'}
                 </button>
             </div>
-            <div ref={containerRef} style={{ height }} />
+            <div ref={containerRef} className="overflow-x-auto" style={{ height }} />
         </div>
     );
 }

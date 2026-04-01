@@ -4,7 +4,7 @@ export function Footer() {
   return (
     <footer className="bg-foreground text-background border-t">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
           {/* Company Info */}
           <div>
             <div className="flex items-center space-x-2 mb-4">
@@ -131,7 +131,7 @@ export function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-12 pt-8 border-t border-background/20">
+        <div className="mt-8 md:mt-12 pt-8 border-t border-background/20">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-sm text-background/60">
               © 2026 PowerProShop. All rights reserved.

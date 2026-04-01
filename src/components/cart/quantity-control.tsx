@@ -61,7 +61,7 @@ export function QuantityControl({
       <Button
         variant="outline"
         size="icon"
-        className="h-8 w-8"
+        className="h-7 w-7 sm:h-8 sm:w-8"
         onClick={() => onChange(value - 1)}
         disabled={value <= min || disabled}
         aria-label="Decrease quantity"
@@ -70,7 +70,7 @@ export function QuantityControl({
       </Button>
 
       {/* Current value display - fixed width to prevent layout shift */}
-      <span className="w-12 text-center font-medium">
+      <span className="w-8 sm:w-12 text-center font-medium">
         {value}
       </span>
 
@@ -78,7 +78,7 @@ export function QuantityControl({
       <Button
         variant="outline"
         size="icon"
-        className="h-8 w-8"
+        className="h-7 w-7 sm:h-8 sm:w-8"
         onClick={() => onChange(value + 1)}
         disabled={value >= max || disabled}
         aria-label="Increase quantity"

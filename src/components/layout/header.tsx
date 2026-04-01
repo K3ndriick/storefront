@@ -143,7 +143,7 @@ export function Header() {
                       onChange={(e) => setSearchQuery(e.target.value)}
                       onKeyDown={(e) => e.key === 'Escape' && closeSearch()}
                       placeholder="Search products..."
-                      className="w-56 border-b border-foreground bg-transparent text-sm outline-none placeholder:text-muted-foreground"
+                      className="w-40 sm:w-56 border-b border-foreground bg-transparent text-sm outline-none placeholder:text-muted-foreground"
                     />
                     <button type="submit" aria-label="Submit search" className="text-foreground hover:text-accent transition-colors">
                       <Search className="h-5 w-5" />
@@ -155,7 +155,7 @@ export function Header() {
 
                   {/* Dropdown */}
                   {(results.length > 0 || searching) && (
-                    <div className="absolute right-0 top-full mt-2 w-80 bg-background border shadow-lg z-50">
+                    <div className="absolute right-0 top-full mt-2 w-[calc(100vw-2rem)] sm:w-80 max-w-sm bg-background border shadow-lg z-50">
                       {searching && (
                         <p className="px-4 py-3 text-sm text-muted-foreground">Searching...</p>
                       )}
@@ -210,7 +210,7 @@ export function Header() {
               )}
 
               {/* User Account */}
-              <div className="hidden sm:flex sm:items-center">
+              <div className="flex items-center">
                 <UserMenu />
               </div>
 
@@ -274,9 +274,6 @@ export function Header() {
               >
                 Services
               </Link>
-              <div className="sm:hidden">
-                <UserMenu />
-              </div>
             </div>
           </div>
         </div>

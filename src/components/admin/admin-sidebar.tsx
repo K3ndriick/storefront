@@ -66,7 +66,7 @@ export function AdminSidebar({ userName }: Props) {
       </div>
 
       {/* Nav links */}
-      <nav className="space-y-1">
+      <nav className="grid grid-cols-2 gap-1 lg:grid-cols-1">
         {navItems.map(({ href, label, icon: Icon }) => {
 
           // ============================================================

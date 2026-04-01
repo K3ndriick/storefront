@@ -34,7 +34,7 @@ export default function CartPage() {
   }
 
   return (
-    <main className="container mx-auto px-4 py-8">
+    <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 overflow-x-hidden">
       <h1 className="mb-8 text-3xl font-bold">Shopping Cart</h1>
 
       {/* Two-column layout: item list on left, summary on right */}

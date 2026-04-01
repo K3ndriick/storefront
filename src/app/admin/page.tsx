@@ -9,10 +9,10 @@ export default async function AdminPage() {
     ]);
 
     return (
-        <div className="grid grid-cols-4 auto-rows-[130px] gap-4">
+        <div className="grid grid-cols-2 lg:grid-cols-4 auto-rows-auto lg:auto-rows-[130px] gap-4">
 
                 {/* Low Stock - hero alert, needs immediate attention */}
-                <div className="col-span-2 row-span-2 bg-destructive/10 border border-destructive/20 rounded-xl p-6 flex flex-col justify-between">
+                <div className="col-span-2 lg:row-span-2 bg-destructive/10 border border-destructive/20 rounded-xl p-6 flex flex-col justify-between">
                     <p className="text-sm text-destructive/80 uppercase tracking-wide">Low Stock Products</p>
                     <p className="text-5xl font-bold text-destructive">{analytics.lowStockCount}</p>
                 </div>
@@ -42,7 +42,7 @@ export default async function AdminPage() {
                 </div>
 
                 {/* Calendar - spans full width, 4 rows tall */}
-                <div className="col-span-4 row-span-4 bg-card border rounded-xl p-4 overflow-hidden">
+                <div className="col-span-2 lg:col-span-4 lg:row-span-4 bg-card border rounded-xl p-4 overflow-x-auto">
                     <p className="text-sm text-muted-foreground uppercase tracking-wide mb-3">This Week</p>
                     <AppointmentCalendarDynamic appointments={appointments} readOnly height="480px" />
                 </div>

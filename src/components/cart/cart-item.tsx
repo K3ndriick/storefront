@@ -59,12 +59,12 @@ export function CartItem({ item }: Props) {
   const hasDiscount = (item.salePrice && item.salePrice < item.price) ? true : false;
 
   return (
-    <div className="flex gap-4 border-b pb-6 last:border-b-0">
+    <div className="flex gap-3 sm:gap-4 border-b pb-4 sm:pb-6 last:border-b-0">
 
       {/* Product image - links back to the product page */}
       <Link
         href={`/products/${item.slug}`}
-        className="relative h-24 w-24 flex-shrink-0 overflow-hidden rounded-lg bg-muted"
+        className="relative h-16 w-16 sm:h-24 sm:w-24 flex-shrink-0 overflow-hidden bg-muted"
       >
         {item.image ? (
           <Image
@@ -81,12 +81,12 @@ export function CartItem({ item }: Props) {
       </Link>
 
       {/* Product info */}
-      <div className="flex flex-1 flex-col gap-2">
+      <div className="flex flex-1 flex-col gap-2 min-w-0">
         <div className="flex justify-between gap-4">
-          <div>
+          <div className="min-w-0">
             <Link
               href={`/products/${item.slug}`}
-              className="font-semibold hover:text-accent transition-colors"
+              className="font-semibold hover:text-accent transition-colors line-clamp-2"
             >
               {item.name}
             </Link>
@@ -107,25 +107,28 @@ export function CartItem({ item }: Props) {
           </Button>
         </div>
 
-        <div className="flex items-end justify-between gap-4">
-          {/* Quantity + price row */}
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 sm:gap-2">
+          {/* Quantity stepper */}
           <QuantityControl
             value={item.quantity}
             onChange={(newQuantity) => updateQuantity(item.productId, newQuantity)}
             max={item.maxQuantity}
           />
 
-          <span className="text-sm">
-            ${(displayPrice * item.quantity).toFixed(2)}
-          </span>
-
-          {hasDiscount && (
-            <span className="text-sm text-muted-foreground line-through">
-              ${(item.price * item.quantity).toFixed(2)}
-            </span>
-          )}
-
-          <div className="text-xs text-muted-foreground">${displayPrice.toFixed(2)} each</div>
+          {/* Price */}
+          <div className="sm:text-right">
+            <div className="flex items-center gap-2 sm:justify-end">
+              <span className="text-sm font-medium">
+                ${(displayPrice * item.quantity).toFixed(2)}
+              </span>
+              {hasDiscount && (
+                <span className="text-sm text-muted-foreground line-through">
+                  ${(item.price * item.quantity).toFixed(2)}
+                </span>
+              )}
+            </div>
+            <p className="text-xs text-muted-foreground">${displayPrice.toFixed(2)} each</p>
+          </div>
         </div>
 
         {/* Stock warning - only show when the customer has maxed out available stock */}

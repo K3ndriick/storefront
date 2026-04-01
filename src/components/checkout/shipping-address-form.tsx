@@ -66,8 +66,8 @@ export const ShippingAddressForm = ({ onSubmit, defaultValues }: Props) => {
   }, [defaultValues, reset])
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 bg-card p-6 border">
-      <h2 className="text-2xl font-bold">Shipping Address</h2>
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 sm:space-y-6 bg-card p-4 sm:p-6 border">
+      <h2 className="text-xl sm:text-2xl font-bold">Shipping Address</h2>
 
       <div className="grid gap-4 md:grid-cols-2">
 

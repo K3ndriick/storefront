@@ -11,7 +11,7 @@ export const OrderSummary = () => {
   const total = useCartStore(state => state.total())
 
   return (
-    <div className="bg-card p-6 border sticky top-20">
+    <div className="bg-card p-4 sm:p-6 border lg:sticky lg:top-16">
       <h3 className="text-xl font-bold mb-6">Order Summary</h3>
 
       {/* Line items */}

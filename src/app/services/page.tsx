@@ -11,11 +11,11 @@ export default async function ServicesPage() {
   const services = await getServices();
 
   return (
-    <div className="min-h-screen bg-background">
-      <div className="max-w-7xl mx-auto px-4 py-16">
+    <div className="bg-background">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14">
 
         {/* Header */}
-        <div className="mb-12">
+        <div className="mb-8">
           <h1 className="text-4xl font-bold mb-3">Repair &amp; Installation Services</h1>
           <p className="text-muted-foreground text-lg max-w-2xl">
             Professional equipment service by our certified technicians.
@@ -27,7 +27,7 @@ export default async function ServicesPage() {
         {services.length === 0 ? (
           <p className="text-muted-foreground">No services available at this time. Please check back soon.</p>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             {services.map((service) => (
               <div key={service.id} className="border bg-card flex flex-col">
 
@@ -71,7 +71,7 @@ export default async function ServicesPage() {
         )}
 
         {/* Trust signals */}
-        <div className="mt-16 border-t pt-12 grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+        <div className="mt-8 sm:mt-10 pt-8 border-t grid grid-cols-1 sm:grid-cols-3 gap-6 text-center">
           <div>
             <p className="font-semibold mb-1">Certified Technicians</p>
             <p className="text-sm text-muted-foreground">Trained on all major brands of gym equipment</p>

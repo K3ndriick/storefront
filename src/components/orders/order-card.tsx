@@ -27,16 +27,21 @@ export const OrderCard = ({ order }: Props) => {
       href={`/dashboard/orders/${order.id}`}
       className="block bg-card border p-6 hover:bg-muted transition-colors"
     >
-      <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
 
-        {/* Left: order ref + date */}
-        <div className="flex-1">
-          <p className="font-mono font-bold text-sm">{order.order_number}</p>
-          <p className="text-xs text-muted-foreground mt-1">{date}</p>
+        {/* Left: order ref + date + status badge (mobile inline) */}
+        <div className="flex-1 flex items-start justify-between sm:block">
+          <div>
+            <p className="font-mono font-bold text-sm">{order.order_number}</p>
+            <p className="text-xs text-muted-foreground mt-1">{date}</p>
+          </div>
+          <span className={`inline-block sm:hidden px-2 py-1 rounded text-xs font-medium ${statusStyles[order.status]}`}>
+            {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
+          </span>
         </div>
 
-        {/* Centre: status badge */}
-        <div className="flex-1 flex sm:justify-center">
+        {/* Centre: status badge (desktop only) */}
+        <div className="hidden sm:flex flex-1 sm:justify-center">
           <span className={`inline-block px-2 py-1 rounded text-xs font-medium ${statusStyles[order.status]}`}>
             {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
           </span>
