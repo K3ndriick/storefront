@@ -5,6 +5,7 @@
 // zodResolver is the bridge - it runs your zod schema when the form submits
 // and passes errors back to react-hook-form in the right format.
 
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
@@ -41,17 +42,28 @@ type ShippingFormValues = z.infer<typeof shippingSchema>
 
 type Props = {
   onSubmit: (data: ShippingAddress) => void
+  defaultValues?: Partial<ShippingFormValues>
 }
 
-export const ShippingAddressForm = ({ onSubmit }: Props) => {
+export const ShippingAddressForm = ({ onSubmit, defaultValues }: Props) => {
   const {
-    register,    // connects an input to the form
-    handleSubmit, // wraps your submit handler with validation
+    register,
+    handleSubmit,
+    reset,
     formState: { errors, isSubmitting },
   } = useForm<ShippingFormValues>({
     resolver: zodResolver(shippingSchema),
-    defaultValues: { country: 'AU' },
+    defaultValues: { country: 'AU', ...defaultValues },
   })
+
+  // defaultValues arrive asynchronously (fetched after mount in the parent).
+  // useForm only reads defaultValues on first render, so we reset whenever
+  // the prop changes to populate the fields once the data is available.
+  useEffect(() => {
+    if (defaultValues && Object.keys(defaultValues).length > 0) {
+      reset({ country: 'AU', ...defaultValues })
+    }
+  }, [defaultValues, reset])
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 bg-card p-6 border">

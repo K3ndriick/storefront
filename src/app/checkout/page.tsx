@@ -14,6 +14,7 @@ import { useAuth } from '@/lib/auth/auth-context';
 import { useCartStore } from '@/store/useCartStore';
 import { createPaymentIntent } from '@/lib/actions/stripe';
 import { reserveCartStock } from '@/lib/actions/reservations';
+import { getUserAddresses } from '@/lib/actions/addresses';
 import { ShippingAddressForm } from '@/components/checkout/shipping-address-form';
 import { PaymentForm } from '@/components/checkout/payment-form';
 import { OrderSummary } from '@/components/checkout/order-summary';
@@ -22,12 +23,39 @@ import type { ShippingAddress } from '@/lib/types/order';
 
 export default function CheckoutPage() {
   const router = useRouter();
-  const { user } = useAuth();
+  const { user, profile } = useAuth();
   const items = useCartStore(state => state.items);
   const subtotal = useCartStore(state => state.subtotal());
   const tax = useCartStore(state => state.tax());
   const shipping = useCartStore(state => state.shipping());
   const total = useCartStore(state => state.total());
+
+  const [shippingDefaults, setShippingDefaults] = useState<Record<string, string | null | undefined>>({});
+  const [defaultsLoaded, setDefaultsLoaded] = useState(false);
+
+  // Pre-fill shipping form from saved default address + profile.
+  // Guard on both user AND profile: when user first resolves, profile is still
+  // null (fetchProfile is async). Waiting for profile ensures the closure
+  // captures real data and we only call getUserAddresses once.
+  useEffect(() => {
+    if (!user || !profile) return;
+    getUserAddresses()
+    .then((addresses) => {
+      const defaultAddr = addresses.find(a => a.is_default) ?? addresses[0];
+      setShippingDefaults({
+        name:          defaultAddr?.name      ?? profile.full_name ?? '',
+        email:         profile.email,
+        phone:         defaultAddr?.phone     ?? profile.phone     ?? '',
+        address_line1: defaultAddr?.address_line1 ?? '',
+        address_line2: defaultAddr?.address_line2 ?? '',
+        city:          defaultAddr?.city      ?? '',
+        state:         defaultAddr?.state     ?? '',
+        postal_code:   defaultAddr?.postal_code ?? '',
+        country:       defaultAddr?.country   ?? 'AU',
+      });
+    })
+    .finally(() => setDefaultsLoaded(true));
+  }, [user, profile]);
 
   // Step tracker: 1 = shipping address, 2 = payment
   const [step, setStep] = useState(1);
@@ -43,7 +71,11 @@ export default function CheckoutPage() {
   // Redirect to cart if there's nothing to check out.
   // Only on step 1 - on step 2 the cart will be empty after a successful
   // payment and we don't want to override the success page redirect.
+  // Guard: wait for Zustand persist to finish rehydrating from localStorage.
+  // On first render items is [] (no localStorage on server), so without this
+  // guard a page refresh would immediately redirect before the cart loads in.
   useEffect(() => {
+    if (!useCartStore.persist.hasHydrated()) return;
     if (step === 1 && items.length === 0) router.push('/cart')
   }, [items, router, step]);
 
@@ -66,13 +98,14 @@ export default function CheckoutPage() {
   //
   // Note: createPaymentIntent is async - this function must be async too
   const handleShippingSubmit = async (address: ShippingAddress) => {
+    if (!user) return;
     setReservationError(null);
 
     // Reserve stock for every cart item before creating the payment intent.
     // If any item is out of stock, we stop here and surface the error.
     const reservationResult = await reserveCartStock(
       items.map((item) => ({ product_id: item.productId, quantity: item.quantity })),
-      user!.id
+      user.id
     );
     if (reservationResult) {
       setReservationError(reservationResult);
@@ -88,11 +121,11 @@ export default function CheckoutPage() {
       price: item.salePrice ?? item.price,
       quantity: item.quantity
     }));
-    
+
     const paymentIntent = await createPaymentIntent(
       total,
       {
-        user_id: user!.id,
+        user_id: user.id,
         cart_items: cartItems,
         shipping_address: address,
         subtotal: subtotal,
@@ -150,7 +183,10 @@ export default function CheckoutPage() {
                     {reservationError}
                   </p>
                 )}
-                <ShippingAddressForm onSubmit={handleShippingSubmit}/>
+                {!defaultsLoaded
+                  ? <div className="flex items-center justify-center py-12 text-muted-foreground">Loading...</div>
+                  : <ShippingAddressForm onSubmit={handleShippingSubmit} defaultValues={shippingDefaults}/>
+                }
               </>
             )}
 
