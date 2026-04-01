@@ -21,13 +21,13 @@ export default async function AdminLayout({ children }: { children: React.ReactN
 
 return (
     <div className="min-h-screen bg-background">
-      <div className="max-w-7xl mx-auto px-4 py-8">
+      <div className="max-w-7xl mx-auto px-4 py-6">
 
         {/* Page heading */}
-        <h1 className="text-3xl font-bold mb-8">Admin Account</h1>
+        <h1 className="text-3xl font-bold mb-6">Admin Account</h1>
 
         {/* Two-column layout: sidebar left, content right */}
-        <div className="flex flex-col lg:flex-row gap-8">
+        <div className="flex flex-col lg:flex-row gap-6">
 
           {/* Sidebar - pass the fetched name as a prop */}
           <AdminSidebar

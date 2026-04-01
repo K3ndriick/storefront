@@ -28,7 +28,7 @@ export function MegaMenuColumn({ title, titleHref, links }: MegaMenuColumnProps)
       {/* Column Links */}
       <ul className="space-y-2">
         {links.map((link) => (
-          <li key={link.href}>
+          <li key={link.label}>
             <Link 
               href={link.href} 
               className="text-sm text-foreground hover:underline underline-offset-2 transition-all inline-block py-1.5"

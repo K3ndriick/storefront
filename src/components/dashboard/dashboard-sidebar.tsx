@@ -15,7 +15,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { ShoppingBag, User, MapPin, Settings } from 'lucide-react';
+import { ShoppingBag, User, MapPin, Settings, CalendarDays } from 'lucide-react';
 
 // ============================================================
 // NAV ITEMS
@@ -26,10 +26,11 @@ import { ShoppingBag, User, MapPin, Settings } from 'lucide-react';
 // ============================================================
 
 const navItems = [
-  { href: '/dashboard/orders',    label: 'Orders',    icon: ShoppingBag },
-  { href: '/dashboard/profile',   label: 'Profile',   icon: User        },
-  { href: '/dashboard/addresses', label: 'Addresses', icon: MapPin      },
-  { href: '/dashboard/settings',  label: 'Settings',  icon: Settings    },
+  { href: '/dashboard/orders',       label: 'Orders',       icon: ShoppingBag  },
+  { href: '/dashboard/appointments', label: 'Appointments', icon: CalendarDays },
+  { href: '/dashboard/profile',      label: 'Profile',      icon: User         },
+  { href: '/dashboard/addresses',    label: 'Addresses',    icon: MapPin       },
+  { href: '/dashboard/settings',     label: 'Settings',     icon: Settings     },
 ];
 
 type Props = {

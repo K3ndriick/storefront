@@ -74,7 +74,7 @@ export function StockAdjustmentForm({ products, adminUserId }: Props) {
           <option value="">Select a product...</option>
           {products.map((p) => (
             <option key={p.id} value={p.id}>
-              {p.name}{p.sku ? ` (${p.sku})` : ''} — current stock: {p.stock_quantity}
+              {p.name}{p.sku ? ` (${p.sku})` : ''} - current stock: {p.stock_quantity}
             </option>
           ))}
         </select>

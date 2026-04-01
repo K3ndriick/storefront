@@ -80,23 +80,23 @@ export function Footer() {
             <h3 className="text-background font-semibold mb-4">Services</h3>
             <ul className="space-y-2 text-sm">
               <li>
-                <Link href="/appointments" className="text-background/70 hover:text-accent transition-colors">
+                <Link href="/services" className="text-background/70 hover:text-accent transition-colors">
                   Equipment Repairs
                 </Link>
               </li>
               <li>
-                <Link href="/maintenance" className="text-background/70 hover:text-accent transition-colors">
+                <Link href="/services" className="text-background/70 hover:text-accent transition-colors">
                   Maintenance Plans
                 </Link>
               </li>
               <li>
-                <Link href="/warranty" className="text-background/70 hover:text-accent transition-colors">
-                  Warranty Info
+                <Link href="/services" className="text-background/70 hover:text-accent transition-colors">
+                  Installation Service
                 </Link>
               </li>
               <li>
-                <Link href="/installation" className="text-background/70 hover:text-accent transition-colors">
-                  Installation Service
+                <Link href="/dashboard/appointments" className="text-background/70 hover:text-accent transition-colors">
+                  My Appointments
                 </Link>
               </li>
             </ul>
@@ -107,22 +107,22 @@ export function Footer() {
             <h3 className="text-background font-semibold mb-4">Support</h3>
             <ul className="space-y-2 text-sm">
               <li>
-                <Link href="/contact" className="text-background/70 hover:text-accent transition-colors">
+                <Link href="/demo" className="text-background/70 hover:text-accent transition-colors">
                   Contact Us
                 </Link>
               </li>
               <li>
-                <Link href="/faq" className="text-background/70 hover:text-accent transition-colors">
+                <Link href="/demo" className="text-background/70 hover:text-accent transition-colors">
                   FAQ
                 </Link>
               </li>
               <li>
-                <Link href="/shipping" className="text-background/70 hover:text-accent transition-colors">
+                <Link href="/demo" className="text-background/70 hover:text-accent transition-colors">
                   Shipping & Returns
                 </Link>
               </li>
               <li>
-                <Link href="/track-order" className="text-background/70 hover:text-accent transition-colors">
+                <Link href="/dashboard/orders" className="text-background/70 hover:text-accent transition-colors">
                   Track Order
                 </Link>
               </li>
@@ -138,19 +138,19 @@ export function Footer() {
             </p>
             <div className="flex space-x-6 mt-4 md:mt-0">
               <Link
-                href="/privacy"
+                href="/demo"
                 className="text-sm text-background/60 hover:text-accent transition-colors"
               >
                 Privacy Policy
               </Link>
               <Link
-                href="/terms"
+                href="/demo"
                 className="text-sm text-background/60 hover:text-accent transition-colors"
               >
                 Terms of Service
               </Link>
               <Link
-                href="/cookies"
+                href="/demo"
                 className="text-sm text-background/60 hover:text-accent transition-colors"
               >
                 Cookie Policy

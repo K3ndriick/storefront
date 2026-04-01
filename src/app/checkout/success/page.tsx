@@ -121,7 +121,7 @@ export default async function CheckoutSuccessPage({ searchParams }: Props) {
         <div className="flex gap-4">
           <Link
             href="/products"
-            className="flex-1 text-center border px-6 py-3 text-sm font-medium hover:bg-accent transition-colors"
+            className="flex-1 text-center border px-6 py-3 text-sm font-medium hover:bg-accent hover:text-accent-foreground transition-colors"
           >
             Continue Shopping
           </Link>

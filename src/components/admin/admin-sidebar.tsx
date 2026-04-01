@@ -15,7 +15,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { ShoppingBag, User, Home, Package, Star, Warehouse, Truck, Building2 } from 'lucide-react';
+import { ShoppingBag, User, Home, Package, Star, Warehouse, Truck, Building2, CalendarDays } from 'lucide-react';
 
 // ============================================================
 // NAV ITEMS
@@ -26,14 +26,15 @@ import { ShoppingBag, User, Home, Package, Star, Warehouse, Truck, Building2 } f
 // ============================================================
 
 const navItems = [
-  { href: '/admin',                 label: 'Dashboard',       icon: Home },
-  { href: '/admin/orders',          label: 'Orders',          icon: ShoppingBag },
-  { href: '/admin/products',        label: 'Products',        icon: Package },
-  { href: '/admin/reviews',         label: 'Reviews',         icon: Star },
-  { href: '/admin/inventory',       label: 'Inventory',       icon: Warehouse },
-  { href: '/admin/suppliers',       label: 'Suppliers',       icon: Building2 },
-  { href: '/admin/purchase-orders', label: 'Purchase Orders', icon: Truck },
-  { href: '/admin/users',           label: 'Users',           icon: User },
+  { href: '/admin',                  label: 'Dashboard',       icon: Home         },
+  { href: '/admin/orders',           label: 'Orders',          icon: ShoppingBag  },
+  { href: '/admin/appointments',     label: 'Appointments',    icon: CalendarDays },
+  { href: '/admin/products',         label: 'Products',        icon: Package      },
+  { href: '/admin/reviews',          label: 'Reviews',         icon: Star         },
+  { href: '/admin/inventory',        label: 'Inventory',       icon: Warehouse    },
+  { href: '/admin/suppliers',        label: 'Suppliers',       icon: Building2    },
+  { href: '/admin/purchase-orders',  label: 'Purchase Orders', icon: Truck        },
+  { href: '/admin/users',            label: 'Users',           icon: User         },
 ];
 
 type Props = {

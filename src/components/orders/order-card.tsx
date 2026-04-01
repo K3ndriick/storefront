@@ -25,23 +25,27 @@ export const OrderCard = ({ order }: Props) => {
   return (
     <Link
       href={`/dashboard/orders/${order.id}`}
-      className="block bg-card border p-6 hover:bg-accent/50 transition-colors"
+      className="block bg-card border p-6 hover:bg-muted transition-colors"
     >
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-center gap-4">
 
         {/* Left: order ref + date */}
-        <div>
+        <div className="flex-1">
           <p className="font-mono font-bold text-sm">{order.order_number}</p>
           <p className="text-xs text-muted-foreground mt-1">{date}</p>
         </div>
 
         {/* Centre: status badge */}
-        <span className={`inline-block px-2 py-1 rounded text-xs font-medium ${statusStyles[order.status]}`}>
-          {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
-        </span>
+        <div className="flex-1 flex sm:justify-center">
+          <span className={`inline-block px-2 py-1 rounded text-xs font-medium ${statusStyles[order.status]}`}>
+            {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
+          </span>
+        </div>
 
         {/* Right: total */}
-        <p className="font-bold">${order.total.toFixed(2)}</p>
+        <div className="flex-1 flex sm:justify-end">
+          <p className="font-bold">${order.total.toFixed(2)}</p>
+        </div>
 
       </div>
     </Link>
