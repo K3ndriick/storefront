@@ -24,9 +24,13 @@ export function Header() {
   const searchInputRef  = useRef<HTMLInputElement>(null)
   const searchWrapperRef = useRef<HTMLDivElement>(null)
 
+  const [mounted, setMounted] = useState(false)
+
   const cartItemCount = useCartStore(state => state.itemCount());
   const { role } = useAuth();
   const router = useRouter()
+
+  useEffect(() => setMounted(true), [])
 
   // Debounced search - fires 300ms after the user stops typing
   useEffect(() => {
@@ -122,12 +126,6 @@ export function Header() {
                 </div>
               </div>
 
-              {/* Contact */}
-              <div className="group relative">
-                <div className="relative z-20">
-                  <NavItem href="/contact">Contact</NavItem>
-                </div>
-              </div>
 
             </nav>
 
@@ -223,7 +221,7 @@ export function Header() {
                 aria-label="Shopping cart"
               >
                 <ShoppingCart className="h-6 w-6" />
-                {cartItemCount > 0 && (
+                {mounted && cartItemCount > 0 && (
                   <span className="absolute -top-2 -right-2 h-5 w-5 rounded-full bg-accent text-accent-foreground text-xs font-bold flex items-center justify-center">
                     {cartItemCount}
                   </span>
@@ -275,13 +273,6 @@ export function Header() {
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Services
-              </Link>
-              <Link
-                href="/contact"
-                className="text-foreground hover:text-accent font-medium"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                Contact
               </Link>
               <div className="sm:hidden">
                 <UserMenu />

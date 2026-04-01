@@ -78,32 +78,33 @@ export const shopMenuData: MegaMenuData = {
 // ============================================
 // SERVICES MEGA MENU DATA
 // ============================================
+// Service booking uses database UUIDs (/services/[id]/book) so we
+// cannot deep-link to individual services from static nav data.
+// All service links route to /services where the customer selects
+// and books. Appointment management links to the dashboard.
 export const servicesMenuData: MegaMenuData = {
   columns: [
     {
-      title: 'Repair & Maintenance',
+      title: 'What We Offer',
+      titleHref: '/services',
       links: [
-        { href: '/services/repairs', label: 'Equipment Repairs' },
-        { href: '/services/maintenance', label: 'Maintenance Plans' },
-        { href: '/services/diagnostics', label: 'Diagnostics' },
-        { href: '/services/emergency', label: 'Emergency Service' },
+        { href: '/services', label: 'Equipment Repair' },
+        { href: '/services', label: 'Home Installation' },
+        { href: '/services', label: 'Equipment Assembly' },
+        { href: '/services', label: 'Maintenance Check' },
       ]
     },
     {
-      title: 'Installation',
+      title: 'Bookings',
       links: [
-        { href: '/services/installation/home', label: 'Home Installation' },
-        { href: '/services/installation/commercial', label: 'Commercial Setup' },
-        { href: '/services/assembly', label: 'Assembly Service' },
+        { href: '/services', label: 'Book an Appointment', variant: 'featured' },
+        { href: '/dashboard/appointments', label: 'My Appointments' },
       ]
     },
     {
-      title: 'Support',
+      title: 'Pricing',
       links: [
-        { href: '/services/warranty', label: 'Warranty Info' },
-        { href: '/services/book-appointment', label: 'Book Appointment' },
-        { href: '/services/service-areas', label: 'Service Areas' },
-        { href: '/services/pricing', label: 'Service Pricing' },
+        { href: '/services', label: 'View All Services & Pricing' },
       ]
     }
   ]
