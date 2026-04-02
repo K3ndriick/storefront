@@ -1,7 +1,7 @@
 # 📋 Client Details & Business Context
 
 **Document Created:** February 7, 2026  
-**Project:** GymProShop E-Commerce & Management System
+**Project:** PowerProShop E-Commerce & Management System
 
 ---
 

@@ -1,9 +1,7 @@
 # Product Requirements Document (PRD)
 
-**Project:** GymProShop - E-Commerce & Business Management Platform
+**Project:** PowerProShop - E-Commerce & Business Management Platform
 **Document Version:** 1.0
-**Created:** March 17, 2026
-**Status:** Active Development
 
 ---
 
@@ -24,7 +22,7 @@
 
 ## Executive Summary
 
-GymProShop is a full-stack e-commerce and business management platform built for a single-owner gym equipment retail and repair shop. The business currently operates entirely offline — pen-and-paper inventory, handwritten appointment books, manual receipts — with no digital presence.
+PowerProShop is a full-stack e-commerce and business management platform built for a single-owner gym equipment retail and repair shop. The business currently operates entirely offline: pen-and-paper inventory, handwritten appointment books, manual receipts, with no digital presence.
 
 This platform digitises every aspect of the business: online product sales, equipment repair bookings, inventory management, customer records, and owner administration. The end result is a professional storefront that competes with established online retailers while preserving the personal, local-service quality that differentiates the business.
 

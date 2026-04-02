@@ -1,7 +1,5 @@
-# 🎨 GymProShop Design System v1.0
+# 🎨 PowerProShop Design System v1.0
 
-**Last Updated:** February 7, 2026  
-**Status:** Production Ready
 
 ---
 
