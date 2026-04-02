@@ -210,6 +210,18 @@ Any future expiry date and any 3-digit CVC work.
 - **Social auth** - email/password only. Google/GitHub OAuth is not implemented.
 - **Single currency** - AUD only.
 
+## AI-Assisted Development
+
+This project was built using Anthropic's Claude Code as a co-programming partner throughout development. Rather than using AI as a code generator, the workflow was collaborative - the developer drove architecture decisions, feature scope, and implementation direction, while Claude Code contributed through active participation in the process.
+
+That participation included:
+
+- **Security review** - identifying gaps like missing server-side role checks across all admin server actions, RLS policies that allowed any authenticated user to write to the products table, and the auth distinction between `getUser()` and `getSession()`
+- **Documentation** - generating and refining technical documentation including this README, the architecture guide, and SQL schema files
+- **Pattern suggestions** - proposing implementation approaches such as the `requireAdmin()` guard pattern and idempotency via unique constraints, each reviewed and understood before being applied
+
+All suggestions were treated as a senior colleague's recommendation - evaluated, questioned where needed, and only applied once the reasoning was clear.
+
 ## License
 
 [All Rights Reserved](LICENSE) - No use, copying, or distribution permitted without explicit written permission.
