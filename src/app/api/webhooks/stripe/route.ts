@@ -76,6 +76,24 @@ async function handlePaymentSucceeded(paymentIntent: Stripe.PaymentIntent) {
     return;
   }
 
+  for (const item of pendingOrder.cart_items) {
+    const { data: reservationToCheck, error: reservationToCheckError } = await supabase
+      .from("stock_reservations")
+      .select("id")
+      .eq("product_id", item.product_id)
+      .eq("reserved_by", pendingOrder.user_id)
+      .gt("expires_at", new Date().toISOString())
+      .single();
+
+      if (!reservationToCheck) {
+        console.error(`Error: Reservation does not exist in system: ${reservationToCheckError}`);
+
+        await stripe.refunds.create({
+          payment_intent: paymentIntent.id
+        });
+        return;
+      }
+  }
 
   // 3. Build and insert the order row
   //    - same logic as createOrder() in orders.ts: generate order number, insert into orders
