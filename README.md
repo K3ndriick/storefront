@@ -133,6 +133,7 @@ Using the wrong client in the wrong context either silently fails auth (anon cli
 | [Data Flow](src/docs/DATA_FLOW.md) | Request traces for checkout, auth, browsing, cart |
 | [State Management](src/docs/STATE_MANAGEMENT.md) | Zustand stores, React Context, URL params |
 | [Design Doc](src/docs/DESIGN_DOC.md) | Color system, typography, spacing, component patterns |
+| [Database Schema](src/docs/DATABASE_SCHEMA.md) | ERD, all 13 tables, DB functions, key design patterns |
 | [Client Details](src/docs/CLIENT_DETAILS.md) | Business context, personas, processes being digitised |
 
 ---
