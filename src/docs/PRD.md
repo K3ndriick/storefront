@@ -111,7 +111,7 @@ The client operates a profitable gym equipment retail and repair business with z
 
 **Pain points today:**
 - Must visit the shop to see what's in stock
-- Shop closes at 6pm — no after-hours purchases possible
+- Shop closes at 6pm - no after-hours purchases possible
 - Can't compare products side by side
 
 ---
@@ -137,7 +137,7 @@ The client operates a profitable gym equipment retail and repair business with z
 
 ## Feature Requirements
 
-Features are organised by implementation phase. Phases 1-6 are complete or near-complete.
+Features are organised by implementation phase. **All 10 phases are complete**, plus post-launch add-ons (Stripe webhook, stock reservations, Upstash rate limiting, Google Places autocomplete). The project is currently in a refinement phase: security audit and bug hunting.
 
 ---
 
@@ -264,22 +264,19 @@ Features are organised by implementation phase. Phases 1-6 are complete or near-
 
 ---
 
-### Phase 6: User Dashboard - PARTIALLY COMPLETE (~80%)
+### Phase 6: User Dashboard - COMPLETE
 
-**Implemented:**
 - Dashboard layout with sidebar navigation (`/dashboard`)
 - Orders page: order history list with status badges, clickable to detail
 - Order detail page: items, totals, shipping address (`/dashboard/orders/[id]`)
 - Profile page: edit full name, phone; email read-only
 - Settings page: change password form
-- Responsive sidebar navigation with active state highlighting
-
-**Not yet implemented:**
 - Saved addresses management (`/dashboard/addresses`)
+- Responsive sidebar navigation with active state highlighting
 
 ---
 
-### Phase 7: Product Reviews - PLANNED
+### Phase 7: Product Reviews - COMPLETE
 
 **Requirements:**
 - Star rating (1-5) and written review per product per user
@@ -288,11 +285,11 @@ Features are organised by implementation phase. Phases 1-6 are complete or near-
 - Review summary with average rating and distribution bar chart
 - Reviews displayed on product detail pages
 
-**Database:** `reviews` table with RLS — anyone sees approved reviews; only owner edits own review.
+**Database:** `reviews` table with RLS - anyone sees approved reviews; only owner edits own review.
 
 ---
 
-### Phase 8: Appointment Booking - PLANNED
+### Phase 8: Appointment Booking - COMPLETE
 
 **Requirements:**
 - Service catalog page listing repair/installation services with pricing and duration
@@ -308,9 +305,9 @@ Features are organised by implementation phase. Phases 1-6 are complete or near-
 
 ---
 
-### Phase 9: Admin Dashboard - PLANNED
+### Phase 9: Admin Dashboard - COMPLETE
 
-**Access control:** Role-based — `profiles.role = 'admin'` required.
+**Access control:** Role-based - `profiles.role = 'admin'` required.
 
 **Modules:**
 - Analytics overview: revenue, orders, pending items, low stock alerts
@@ -322,7 +319,7 @@ Features are organised by implementation phase. Phases 1-6 are complete or near-
 
 ---
 
-### Phase 10: Inventory Management - PLANNED
+### Phase 10: Inventory Management - COMPLETE
 
 **Requirements:**
 - Low stock alert dashboard (products below `low_stock_threshold`)
@@ -332,6 +329,15 @@ Features are organised by implementation phase. Phases 1-6 are complete or near-
 - Purchase orders: create PO, add line items, mark as received (auto-increments stock)
 
 **Database:** `stock_adjustments`, `suppliers`, `purchase_orders`, `purchase_order_items` tables.
+
+---
+
+### Post-Launch Add-Ons - COMPLETE
+
+- **Stripe webhook handler** - confirms payment server-side; closes the "order lost if browser closes mid-payment" risk. Also enforces stock reservation expiry.
+- **Stock reservation system** - items are reserved at checkout start with a TTL; webhook commits the reservation on payment success. Closes the overselling race condition.
+- **Upstash Redis rate limiting** - applied to auth routes (login, signup, password reset). See `private/SETUP_upstash-rate-limiting.md`.
+- **Google Places API address autocomplete** - shipping address form autofills from Places suggestions (parity with mainstream e-commerce). See `private/ADDON_address-autocomplete.md`.
 
 ---
 
@@ -373,13 +379,13 @@ Features are organised by implementation phase. Phases 1-6 are complete or near-
 | Constraint | Detail |
 |------------|--------|
 | Framework | Next.js 16 App Router (cannot downgrade) |
-| Database | Supabase (PostgreSQL) — already provisioned |
-| Auth | Supabase Auth — email/password only at launch |
-| Payments | Stripe — AUD, card payments only at launch |
+| Database | Supabase (PostgreSQL) - already provisioned |
+| Auth | Supabase Auth - email/password only at launch |
+| Payments | Stripe - AUD, card payments only at launch |
 | Hosting | Vercel (planned) |
-| Email (dev) | Mailtrap SMTP — switch to Resend/SendGrid for production |
+| Email (dev) | Mailtrap SMTP - switch to Resend/SendGrid for production |
 | Owner tech literacy | Admin UI must be operable by non-technical user |
-| Budget | Small business — open-source preferred, costs minimised |
+| Budget | Small business - open-source preferred, costs minimised |
 
 ---
 
@@ -387,16 +393,16 @@ Features are organised by implementation phase. Phases 1-6 are complete or near-
 
 The following are explicitly excluded from this project:
 
-- **In-store POS integration** — physical register remains separate
-- **PayPal / buy-now-pay-later** — Stripe card payments only at launch
-- **Social login** (Google, Facebook) — email/password only
-- **Two-factor authentication** — post-launch enhancement
-- **Multi-location support** — single shop only
-- **B2B / wholesale pricing** — future consideration
-- **Marketplace integrations** (eBay, Amazon) — not planned
-- **Native mobile app** — responsive web only
-- **Real-time chat / live support** — not in scope
-- **Automatic tax calculation by jurisdiction** — flat 10% GST only
+- **In-store POS integration** - physical register remains separate
+- **PayPal / buy-now-pay-later** - Stripe card payments only at launch
+- **Social login** (Google, Facebook) - email/password only
+- **Two-factor authentication** - post-launch enhancement
+- **Multi-location support** - single shop only
+- **B2B / wholesale pricing** - future consideration
+- **Marketplace integrations** (eBay, Amazon) - not planned
+- **Native mobile app** - responsive web only
+- **Real-time chat / live support** - not in scope
+- **Automatic tax calculation by jurisdiction** - flat 10% GST only
 
 ---
 
@@ -418,15 +424,16 @@ The following are explicitly excluded from this project:
 
 | Risk | Likelihood | Impact | Mitigation |
 |------|-----------|--------|------------|
-| Stripe webhook missing — orders lost if browser closes during payment | High | High | Implement webhook handler (flagged in post-phase-5-tasks.md) |
-| Inventory overselling — two customers buy last item simultaneously | Medium | Medium | Implement stock reservation during checkout (flagged in post-phase-5-tasks.md) |
-| Owner adoption failure — too complex for low-tech user | Medium | High | Keep admin UI simple; provide written guides and video walkthroughs |
+| Stripe webhook missing - orders lost if browser closes during payment | ~~High~~ | ~~High~~ | RESOLVED - webhook handler shipped (see Post-Launch Add-Ons) |
+| Inventory overselling - two customers buy last item simultaneously | ~~Medium~~ | ~~Medium~~ | RESOLVED - stock reservation system shipped (see Post-Launch Add-Ons) |
+| Owner adoption failure - too complex for low-tech user | Medium | High | Keep admin UI simple; provide written guides and video walkthroughs |
 | Data loss during paper-to-digital migration | Low | High | Parallel systems during transition; validate all migrated data before cutover |
 | Email deliverability issues at launch | Medium | Medium | Configure SPF/DKIM/DMARC; switch from Mailtrap to production email (Resend) |
 | Payment disputes / chargebacks | Low | Medium | Stripe Radar fraud tools enabled by default; clear refund policy on site |
+| Brute-force / credential stuffing on auth endpoints | ~~Medium~~ | ~~High~~ | RESOLVED - Upstash Redis rate limiting on auth routes |
 
 ---
 
 **Document Owner:** Development Team
-**Last Updated:** March 17, 2026
+**Last Updated:** May 2026
 **Review Cadence:** Updated at each phase completion
