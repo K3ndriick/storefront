@@ -1,11 +1,12 @@
-# 📋 Client Details & Business Context
+# Client Details & Business Context
 
-**Document Created:** February 7, 2026  
+**Document Created:** February 2026  
+**Last Updated:** May 2026  
 **Project:** PowerProShop E-Commerce & Management System
 
 ---
 
-## 🏢 Business Overview
+## Business Overview
 
 ### **Client Profile**
 - **Business Type:** Single retail shop owner/operator
@@ -31,57 +32,57 @@
 
 ---
 
-## 📊 Current State (Before Digital Transformation)
+## Current State (Before Digital Transformation)
 
 ### **Technology Stack: NONE**
-- ❌ No existing website
-- ❌ No e-commerce platform
-- ❌ No digital inventory system
-- ❌ No customer database
-- ❌ No online presence
+- No existing website
+- No e-commerce platform
+- No digital inventory system
+- No customer database
+- No online presence
 
 ### **Current Operations (Analog/Manual)**
 
 **Inventory Management:**
-- ✏️ Pen & paper notebooks
-- 📊 Excel spreadsheets
-- 🗂️ Physical stock cards
-- ❌ No real-time stock visibility
-- ❌ Manual stock counts
-- ❌ Paper-based reorder triggers
+- Pen & paper notebooks
+- Excel spreadsheets
+- Physical stock cards
+- No real-time stock visibility
+- Manual stock counts
+- Paper-based reorder triggers
 
 **Customer Records:**
-- ✏️ Handwritten customer details
-- 📁 Physical file folders
-- 📞 Phone book for contacts
-- ❌ No customer purchase history
-- ❌ No loyalty tracking
-- ❌ No digital communication
+- Handwritten customer details
+- Physical file folders
+- Phone book for contacts
+- No customer purchase history
+- No loyalty tracking
+- No digital communication
 
 **Sales Tracking:**
-- 💰 Cash register receipts
-- 📊 Excel sheets for daily sales
-- 📒 Manual end-of-day reconciliation
-- ❌ No analytics or trends
-- ❌ No automated reporting
+- Cash register receipts
+- Excel sheets for daily sales
+- Manual end-of-day reconciliation
+- No analytics or trends
+- No automated reporting
 
 **Service Appointments:**
-- 📅 Paper calendar
-- ✏️ Handwritten appointment book
-- 📞 Phone call confirmations
-- ❌ No automated reminders
-- ❌ No service history tracking
+- Paper calendar
+- Handwritten appointment book
+- Phone call confirmations
+- No automated reminders
+- No service history tracking
 
 **Financial Records:**
-- 💵 Manual cash counting
-- 📊 Excel for basic accounting
-- 🧾 Physical receipt storage
-- ❌ No automated tax calculations
-- ❌ Manual profit/loss tracking
+- Manual cash counting
+- Excel for basic accounting
+- Physical receipt storage
+- No automated tax calculations
+- Manual profit/loss tracking
 
 ---
 
-## 🎯 Project Goals
+## Project Goals
 
 ### **Primary Objectives**
 
@@ -100,8 +101,8 @@
 - Enable data-driven decisions
 
 **3. Business Growth**
-- Expand customer reach (local → regional)
-- Enable 24/7 sales (shop hours → always open)
+- Expand customer reach (local -> regional)
+- Enable 24/7 sales (shop hours -> always open)
 - Improve customer service
 - Streamline operations
 - Increase revenue
@@ -131,7 +132,7 @@
 
 ---
 
-## 👥 User Personas
+## User Personas
 
 ### **1. Shop Owner (Administrator)**
 **Name:** Business Owner  
@@ -219,7 +220,7 @@
 
 ---
 
-## 📍 Market Context
+## Market Context
 
 ### **Geographic Scope**
 **Current (Offline):**
@@ -256,7 +257,7 @@
 
 ---
 
-## 🔧 Business Processes to Digitize
+## Business Processes to Digitize
 
 ### **Sales Process**
 
@@ -277,7 +278,6 @@
 5. Pick up OR delivery
 6. Digital receipt
 7. Purchase history saved
-8. Follow-up email
 
 ### **Service Booking Process**
 
@@ -293,12 +293,10 @@
 **New (Digital):**
 1. Customer books online (24/7)
 2. System checks availability
-3. Instant confirmation email
-4. Automated reminders (SMS/email)
-5. Service performed
-6. Digital invoice
-7. Service history saved
-8. Follow-up & feedback request
+3. Booking confirmation email
+4. Service performed
+5. Digital invoice
+6. Service history saved
 
 ### **Inventory Management**
 
@@ -313,64 +311,63 @@
 
 **New (Digital):**
 1. Sell product (online/in-store)
-2. System auto-decrements stock
+2. System auto-decrements stock atomically
 3. Real-time stock visibility
 4. Low stock alerts (automatic)
-5. One-click reorder
-6. Receive delivery
-7. Scan barcode → stock updated
-8. Analytics show trends
+5. Create purchase order via admin dashboard
+6. Receive delivery, mark PO as received (auto-increments stock)
+7. Full audit log of all stock changes
 
 ---
 
-## 📦 Inventory Characteristics
+## Inventory Characteristics
 
 ### **Product Categories**
 1. **Cardio Equipment**
-   - Treadmills
-   - Exercise bikes
-   - Rowing machines
-   - Ellipticals
+  - Treadmills
+  - Exercise bikes
+  - Rowing machines
+  - Ellipticals
 
 2. **Strength Equipment**
-   - Weight benches
-   - Power racks
-   - Smith machines
-   - Cable machines
+  - Weight benches
+  - Power racks
+  - Smith machines
+  - Cable machines
 
 3. **Free Weights**
-   - Dumbbells
-   - Barbells
-   - Weight plates
-   - Kettlebells
+  - Dumbbells
+  - Barbells
+  - Weight plates
+  - Kettlebells
 
 4. **Accessories**
-   - Yoga mats
-   - Resistance bands
-   - Gloves
-   - Water bottles
-   - Gym bags
+  - Yoga mats
+  - Resistance bands
+  - Gloves
+  - Water bottles
+  - Gym bags
 
 5. **Recovery**
-   - Foam rollers
-   - Massage guns
-   - Compression gear
-   - Ice baths
+  - Foam rollers
+  - Massage guns
+  - Compression gear
+  - Ice baths
 
 ### **Inventory Scale**
 - **SKU Count:** ~200-500 items (estimated)
-- **Price Range:** $10 (accessories) → $5,000 (commercial treadmills)
-- **Stock Levels:** Low (expensive equipment) → High (accessories)
+- **Price Range:** $10 (accessories) -> $5,000 (commercial treadmills)
+- **Stock Levels:** Low (expensive equipment) -> High (accessories)
 - **Turnover:** Varies by category
 - **Suppliers:** 5-10 main suppliers
 
 ---
 
-## 💰 Financial Context
+## Financial Context
 
 ### **Transaction Types**
 - **In-Store Sales:** Cash, Credit Card, EFTPOS
-- **Online Sales:** Credit Card, PayPal (future)
+- **Online Sales:** Credit Card (Stripe)
 - **Service Payments:** Cash, Card, Invoice (30 days for commercial)
 
 ### **Average Transaction Value**
@@ -386,32 +383,31 @@
 
 ---
 
-## 🎯 Success Metrics (KPIs)
+## Success Metrics (KPIs)
 
 ### **Phase 1 (Launch - 3 months)**
-- [ ] Website live and functional
-- [ ] 50+ products listed online
-- [ ] First online sale completed
-- [ ] 10 online service bookings
-- [ ] Zero data loss from migration
+- Website live and functional
+- 50+ products listed online
+- First online sale completed
+- 10 online service bookings
+- Zero data loss from migration
 
 ### **Phase 2 (Growth - 6 months)**
-- [ ] 20% of sales through website
-- [ ] 100+ registered customers
-- [ ] 50+ online service bookings
-- [ ] Digital inventory 100% accurate
-- [ ] Owner comfortable using system
+- 20% of sales through website
+- 100+ registered customers
+- 50+ online service bookings
+- Digital inventory 100% accurate
+- Owner comfortable using system independently
 
 ### **Phase 3 (Maturity - 12 months)**
-- [ ] 40% of sales through website
-- [ ] 500+ registered customers
-- [ ] Automated inventory reordering
-- [ ] Customer loyalty program active
-- [ ] Expansion to second location (future)
+- 40% of sales through website
+- 500+ registered customers
+- Automated low-stock alerts triggering reorders
+- Expansion to second location (future consideration)
 
 ---
 
-## 🚧 Migration Challenges
+## Migration Challenges
 
 ### **Data Migration**
 **Challenge:** Convert Excel/paper records to database  
@@ -448,7 +444,7 @@
 
 ---
 
-## 📝 Notes & Constraints
+## Notes & Constraints
 
 ### **Budget Constraints**
 - Small business budget
@@ -459,7 +455,7 @@
 ### **Timeline**
 - **Urgent:** Need system ASAP
 - **Realistic:** 2-3 months development
-- **Phased Rollout:** Products first → Services later
+- **Phased Rollout:** Products first -> Services later
 
 ### **Technical Constraints**
 - Owner not technical
@@ -475,16 +471,16 @@
 
 ---
 
-## 🎓 Owner's Digital Literacy
+## Owner's Digital Literacy
 
 **Current Skills:**
-- ✅ Basic email
-- ✅ Excel spreadsheets
-- ✅ Social media (personal)
-- ⚠️ Limited with complex software
-- ⚠️ Needs simple interfaces
-- ❌ No coding knowledge
-- ❌ Never managed a website
+- Basic email
+- Excel spreadsheets
+- Social media (personal)
+- Limited with complex software
+- Needs simple interfaces
+- No coding knowledge
+- Never managed a website
 
 **Required Skill Level (Post-Launch):**
 - Add products via simple form
@@ -503,16 +499,14 @@
 
 ---
 
-## 🔐 Security & Compliance
+## Security & Compliance
 
-**Required:**
-- [ ] PCI DSS compliance (payment processing)
-- [ ] Privacy policy
-- [ ] Terms & conditions
-- [ ] Cookie policy
-- [ ] Secure customer data storage
-- [ ] Backup strategy
-- [ ] SSL certificate
+**Requirements:**
+- PCI DSS compliance - handled via Stripe (card data never touches the server)
+- Secure customer data storage - RLS enforced at database level on all tables
+- SSL certificate - enforced by Vercel on all deployments
+- Privacy policy, Terms & conditions, Cookie policy - to be completed pre-launch
+- Backup strategy - Supabase managed backups
 
 **Data to Protect:**
 - Customer personal information
@@ -523,6 +517,6 @@
 
 ---
 
-**Last Updated:** February 7, 2026  
-**Document Owner:** Development Team  
+**Last Updated:** May 6, 2026  
+**Document Owner:** Development Team
 **Review Frequency:** Monthly during development

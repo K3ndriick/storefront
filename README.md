@@ -1,10 +1,16 @@
 # PowerProShop
 
-A personal full-stack rebuild of a gym equipment retail and repair shop's e-commerce system, migrated from a legacy CakePHP application into a modern Next.js stack.
+A full-stack e-commerce and business management platform built for a single-owner gym equipment retail and repair shop - a business that previously ran entirely on pen and paper with no digital presence. **37 pages. 15+ user flows. Built solo.**
+
+The platform digitises every aspect of the business: online product sales, appointment booking for repair and installation services, customer accounts, and a complete admin layer for the owner to manage everything remotely. It replaces notebooks, Excel spreadsheets, and phone-call-only orders with a production-ready system.
+
+> Currently in final security review before production launch.
+
+**[Case Study](src/docs/CASE_STUDY.md)** - full project narrative, key decisions, hard problems, lessons learned.
 
 ## Overview
 
-The original CakePHP system covered products and appointment bookings. This rebuild retains and modernises those core features, then extends the platform with a full admin layer that did not previously exist: sales analytics, order management, review moderation, inventory control, supplier management, and purchase orders.
+Built on a unified Next.js stack with Supabase, Stripe, and Upstash Redis. The original CakePHP system covered products and appointment bookings. This rebuild retains and modernises those core features, then extends the platform with a full admin layer that did not previously exist: sales analytics, order management, review moderation, inventory control, supplier management, and purchase orders.
 
 The rebuild also introduced Stripe payment processing with server-side webhook handling, a stock reservation system, Row Level Security across all database tables, and a role-based admin access model.
 
@@ -116,6 +122,20 @@ Using the wrong client in the wrong context either silently fails auth (anon cli
 - **Append-only stock ledger** - `stock_adjustments` rows are never updated or deleted. Current stock is the product's base quantity plus the sum of all adjustment deltas. Audit history is always preserved.
 - **Derived slot availability** - appointment slots are not stored. Available times are computed on request from service duration, business hours, and existing bookings. Storing availability would require keeping it in sync with every booking and cancellation.
 - **Review state machine** - reviews move through `pending -> approved` or `pending -> rejected`. Valid transitions are enforced in the server action before any database write. A CHECK constraint on the `status` column provides a second enforcement layer at the database level.
+
+## Project Docs
+
+| Document | What it covers |
+|---|---|
+| [Case Study](src/docs/CASE_STUDY.md) | Full project narrative - problem, decisions, hard problems, lessons learned |
+| [Architecture](src/docs/ARCHITECTURE.md) | System shape, codebase structure, DB schema, security layers |
+| [PRD](src/docs/PRD.md) | Product requirements by phase, success metrics, constraints |
+| [Data Flow](src/docs/DATA_FLOW.md) | Request traces for checkout, auth, browsing, cart |
+| [State Management](src/docs/STATE_MANAGEMENT.md) | Zustand stores, React Context, URL params |
+| [Design Doc](src/docs/DESIGN_DOC.md) | Color system, typography, spacing, component patterns |
+| [Client Details](src/docs/CLIENT_DETAILS.md) | Business context, personas, processes being digitised |
+
+---
 
 ## Getting Started
 

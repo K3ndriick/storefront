@@ -1,9 +1,9 @@
-# 🎨 PowerProShop Design System v1.0
+# PowerProShop Design System
 
 
 ---
 
-## 📋 Table of Contents
+## Table of Contents
 1. [Color System](#color-system)
 2. [Typography](#typography)
 3. [Spacing](#spacing)
@@ -15,7 +15,7 @@
 
 ---
 
-## 🎨 Color System
+## Color System
 
 ### **Philosophy**
 Following Nike, Adidas, Lululemon, Gymshark pattern:
@@ -69,14 +69,14 @@ Following Nike, Adidas, Lululemon, Gymshark pattern:
 | **Disabled** | `bg-muted text-muted-foreground` | Disabled buttons |
 
 ### **Accent Color Restrictions**
-✅ **ALLOWED:**
+**ALLOWED:**
 - Cart notification badge
 - Link hover states
 - Small checkmark icons
 - Active navigation underline
 - Progress indicators
 
-❌ **FORBIDDEN:**
+**FORBIDDEN:**
 - Primary buttons (use black)
 - Large backgrounds
 - Headings
@@ -85,7 +85,7 @@ Following Nike, Adidas, Lululemon, Gymshark pattern:
 
 ---
 
-## 📝 Typography
+## Typography
 
 ### **Font Stack**
 ```css
@@ -94,11 +94,11 @@ font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
 ```
 
 **Reasoning:**
-- ✅ System fonts = fastest load time
-- ✅ Native to each OS = familiar feel
-- ✅ No external requests
-- ✅ Nike/Adidas use system fonts
-- ✅ Professional, clean appearance
+- System fonts = fastest load time
+- Native to each OS = familiar feel
+- No external requests
+- Nike/Adidas use system fonts
+- Professional, clean appearance
 
 ### **Type Scale**
 
@@ -183,7 +183,7 @@ font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
 
 ---
 
-## 📐 Spacing System
+## Spacing System
 
 ### **Scale**
 Based on Tailwind's 4px base unit:
@@ -232,7 +232,7 @@ className="space-y-8"        // 32px between sections
 
 ---
 
-## 🎯 Design Rules
+## Design Rules
 
 ### **Rule 1: Strategic White Space**
 **"Breathe Between Every Element"**
@@ -291,7 +291,7 @@ className="space-y-8"        // 32px between sections
 
 ---
 
-## 🧩 Component Patterns
+## Component Patterns
 
 ### **Button Hierarchy**
 
@@ -365,7 +365,7 @@ className="space-y-8"        // 32px between sections
 
 ---
 
-## 🧭 Navigation Patterns
+## Navigation Patterns
 
 ### **Header Structure**
 
@@ -381,10 +381,10 @@ className="space-y-8"        // 32px between sections
 ```
 
 **Key Points:**
-- ❌ NO `bg-background/95` transparency
-- ✅ Solid `bg-background`
-- ✅ Sticky positioning
-- ✅ Border bottom for separation
+- NO `bg-background/95` transparency
+- Solid `bg-background`
+- Sticky positioning
+- Border bottom for separation
 
 ### **Mega Menu Pattern**
 
@@ -425,7 +425,7 @@ Following Salomon/Reebok:
 
 ---
 
-## 📱 Responsive Breakpoints
+## Responsive Breakpoints
 
 ```css
 /* Mobile First */
@@ -566,7 +566,7 @@ Each status has a `*-bg` and `*-fg` pair:
 
 ---
 
-## ✅ Quality Checklist
+## Quality Checklist
 
 Before shipping any component:
 
@@ -584,29 +584,29 @@ Before shipping any component:
 
 ---
 
-## 🚀 Implementation Notes
+## Implementation Notes
 
 ### **DO:**
-✅ Use semantic class names (`bg-primary`, `text-accent`)  
-✅ Follow mobile-first approach  
-✅ Use system fonts  
-✅ Stick to 3 design rules  
-✅ Keep accent color minimal  
-✅ Test on mobile devices  
-✅ Use proper semantic HTML  
+Use semantic class names (`bg-primary`, `text-accent`)  
+Follow mobile-first approach  
+Use system fonts  
+Stick to 3 design rules  
+Keep accent color minimal  
+Test on mobile devices  
+Use proper semantic HTML  
 
 ### **DON'T:**
-❌ Hardcode colors (`bg-black`, `bg-teal-500`)  
-❌ Use 4+ grid columns  
-❌ Add transparency to header  
-❌ Overuse accent color  
-❌ Use custom fonts  
-❌ Skip accessibility  
-❌ Forget hover states  
+Hardcode colors (`bg-black`, `bg-teal-500`)  
+Use 4+ grid columns  
+Add transparency to header  
+Overuse accent color  
+Use custom fonts  
+Skip accessibility  
+Forget hover states  
 
 ---
 
-## 📊 Design Metrics
+## Design Metrics
 
 **Target Performance:**
 - First Contentful Paint: <1.5s
@@ -622,4 +622,4 @@ Before shipping any component:
 ---
 
 **Version History:**
-- v1.0 - Initial design system (Feb 7, 2026)
+- v1.0 - Initial design system (Feb 2026)
